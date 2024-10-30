@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EquiPath - Lite</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body class="d-flex flex-column bg-secondary p3">
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand brand-orange h5" href="#">EquiPath Lite</a>
+        <button class="btn btn-sm btn-outline-success d-flex" id="signInButton">Sign In</button>
+      </div>
+    </nav>
+  </header>
+  <main class="flex-shrink-0" id="mainContent">
+    <span id="topMain"></span>
+    <div class="accordion p-1" id="uiMain">
+      <div class="accordion-item" id="sessionList">
+        <span class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseList" aria-expanded="false" aria-controls="collapseList">
+            <span class="h4">Training Sessions</span>
+          </button>
+        </span>
+        <div id="collapseList" class="accordion-collapse collapse show">
+          <div class="accordion-body bg-gradient">
+            <div id="session-list">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item" id="sessionForm">
+        <span class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+            <span class="h4">Add Session</span>
+          </button>
+        </span>
+        <div id="collapseForm" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            <div class="card shadow-sm mb-4">
+              <div class="card-body">
+                <h3 class="card-title">Training Session</h3>
+                <form id="training-form">
+                  <input type="hidden" name="sessionId" value="" />
+                  <div class="mb-3">
+                    <label for="horseName" class="form-label">Horse Name</label>
+                    <input type="text" class="form-control" name="horseName" id="horseName"
+                      placeholder="Enter horse's name" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="trainerName" class="form-label">Trainer Name</label>
+                    <input type="text" class="form-control" name="trainerName" id="trainerName"
+                      placeholder="Enter trainer's name" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="sessionDate" class="form-label">Session Date</label>
+                    <input type="date" class="form-control" name="sessionDate" id="sessionDate" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="timeOfDay" class="form-label">Time of Day</label>
+                    <select class="form-select" name="timeOfDay" id="timeOfDay" required>
+                      <option selected disabled value="">Select Time of Day</option>
+                      <option value="Early Morning">Early Morning (Before 8 a.m.)
+                      </option>
+                      <option value="Morning">Morning (8 a.m. - 11 a.m.)</option>
+                      <option value="Late Morning">Late Morning (10 a.m. - 12
+                        p.m.)</option>
+                      <option value="Noon">Noon (12 p.m.)</option>
+                      <option value="Afternoon">Afternoon (12 p.m. - 5 p.m.)
+                      </option>
+                      <option value="Late Afternoon">Late Afternoon (4 p.m. - 6
+                        p.m.)</option>
+                      <option value="Evening">Evening (5 p.m. - 8 p.m.)</option>
+                      <option value="Night">Night (After 8 p.m.)</option>
+                      <option value="Late Night">Late Night (After 10 p.m.)
+                      </option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="trainingType" class="form-label">Training
+                      Type</label>
+                    <select class="form-select" name="trainingType" id="trainingType" required>
+                      <option selected disabled value="">Choose an exercise...</option>
+                      <option value="Lunging">Lunging</option>
+                      <option value="Groundwork Exercises">Groundwork Exercises
+                      </option>
+                      <option value="Pole Work">Pole Work</option>
+                      <option value="Lateral Work">Lateral Work</option>
+                      <option value="Transitions Between Gaits">Transitions
+                        Between Gaits</option>
+                      <option value="Circles and Serpentines">Circles and
+                        Serpentines</option>
+                      <option value="Backing Up">Backing Up</option>
+                      <option value="Desensitization Exercises">Desensitization
+                        Exercises</option>
+                      <option value="Yielding to Pressure">Yielding to Pressure
+                      </option>
+                      <option value="Halter and Lead Training">Halter and Lead Training</option>
+                      <option value="Trail Work">Trail Work</option>
+                      <option value="Liberty Work">Liberty Work</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="horseMood" class="form-label">Horse Mood</label>
+                    <select class="form-select" name="horseMood" id="horseMood" required>
+                      <option selected disabled value="">Select mood...</option>
+                      <option value="Calm">Calm - Relaxed and steady</option>
+                      <option value="Focused">Focused - Attentive and engaged</option>
+                      <option value="Playful">Playful - Energetic and curious</option>
+                      <option value="Anxious">Anxious - Alert and reactive</option>
+                      <option value="Stubborn">Stubborn - Hesitant and resistant</option>
+                      <option value="Aggressive">Aggressive - Defensive and wary</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="notes" class="form-label">Notes</label>
+                    <textarea class="form-control" name="notes" id="notes" rows="3"
+                      placeholder="Enter detailed notes for training session"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="grade" class="form-label">Grade</label>
+                    <select class="form-select" name="grade" id="grade">
+                      <option value="*" selected disabled>Select grade...</option>
+                      <option value="A">A - Excellent progress</option>
+                      <option value="B">B - Good progress</option>
+                      <option value="C">C - Some progress</option>
+                      <option value="D">D - Needs improvement</option>
+                      <option value="F">F - No improvement</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="additionalNotes" class="form-label">Additional
+                      Notes</label>
+                    <textarea class="form-control" name="additionalNotes" id="additionalNotes" rows="2"
+                      placeholder="Enter any extra observations"></textarea>
+                  </div>
+                  <button id="submit-session" type="submit" class="btn btn-sm btn-primary float-end">Submit</button>
+                  <button id="cancel-session" type="button" class="btn btn-sm btn-warning float-end">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card m-1">
+      <h5 class="card-header brand-blue">Welcome to EquiPath!</h5>
+      <div class="card-body">
+        <section class="mb-4">
+          <p>EquiPath is a web app designed to help you track and evaluate your horse's training progress,
+            with a focus on behavior modification, trust, respect, and partnership.</p>
+          <p><strong>Key Features:</strong> Quick session entry, detailed tracking lists, an informative Guide
+            section, and future updates like data trends and progress summaries.</p>
+        </section>
+      </div>
+    </div>
+    <div style="height: 40px;"></div>
+  </main>
+  <footer class="footer fixed-bottom bg-brand-blue">
+    <a type="button" class="btn btn-sm brand-orange" href="guide.html">Guide</a>
+    <button type="button" class="btn btn-sm brand-orange" id="signOutButton">Sign Out</button>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js'
+    // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
+    import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js'
+    // Add Firebase products that you want to use
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js'
+    import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, query, orderBy, Timestamp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js'
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyD7ZlTdNiy0xaDtypcEvs78kU0mbvk79eE",
+      authDomain: "equipathlite.firebaseapp.com",
+      projectId: "equipathlite",
+      storageBucket: "equipathlite.appspot.com",
+      messagingSenderId: "245462160847",
+      appId: "1:245462160847:web:a76644967e759abfff6eba",
+      measurementId: "G-2GFCW09LX5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    // const analytics = getAnalytics(app);
+    const journals = getFirestore(app);
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider()
+
+    // data
+    var journalPath = ""; // points to session documants
+    var trainerPath = "Journal/email@domain.com"; // Trainer Document
+    const trainer = {
+      name: "",
+      email: "",
+      auth: false,
+      active: false,
+      date: null
+    };
+    // Lookup Tables
+    const horseMood = {
+      "Calm": {
+        "syntax": "Relaxed and steady",
+        "color": "#27ae60",
+        "context": "The horse is relaxed, showing steady responsiveness and ease within the environment. Suitable for focus-based exercises and skill-building activities that require patience."
+      },
+      "Focused": {
+        "syntax": "Attentive and engaged",
+        "color": "#2980b9",
+        "context": "The horse is highly attentive and responsive to cues, actively engaged in the exercises. Ideal for skill refinement or introducing new tasks."
+      },
+      "Playful": {
+        "syntax": "Energetic and curious",
+        "color": "#f39c12",
+        "context": "The horse is energetic and spirited, displaying curiosity and enthusiasm. Great for exercises that encourage exploration and social interaction but may require guidance to maintain structure."
+      },
+      "Anxious": {
+        "syntax": "Alert and reactive",
+        "color": "#e67e22",
+        "context": "The horse shows signs of nervousness or tension, possibly distracted by surroundings. Beneficial to work on relaxation techniques or low-pressure exercises to build confidence."
+      },
+      "Stubborn": {
+        "syntax": "Hesitant and resistant",
+        "color": "#e74c3c",
+        "context": "The horse is resistant or reluctant to follow cues, requiring extra patience and clear guidance. Suitable for reinforcing foundational training with gentle encouragement."
+      },
+      "Aggressive": {
+        "syntax": "Aggressive - Defensive and wary",
+        "color": "#c0392b",
+        "context": "The horse displays assertive or defensive behavior, potentially due to discomfort or stress. Important to assess for any triggers or health concerns before proceeding with further training."
+      }
+    };
+
+    const sessionGrade = {
+      "A": {
+        "syntax": "Excellent progress",
+        "color": "#27ae60",
+        "context": "The horse demonstrates a strong grasp of skills and exercises, showing consistency, responsiveness, and high engagement throughout the session. There are no major challenges, indicating readiness for new challenges or refinement."
+      },
+      "B": {
+        "syntax": "Good progress",
+        "color": "#2ecc71",
+        "context": "The horse shows reliable improvement and engages well with cues, though some exercises may still need reinforcement. Progress is evident but can be built upon with continued practice."
+      },
+      "C": {
+        "syntax": "Some progress",
+        "color": "#f1c40f",
+        "context": "The horse makes partial improvements but shows signs of difficulty with certain aspects of the exercises. The session may require specific focus on a few skills or behavioral adjustments to strengthen response."
+      },
+      "D": {
+        "syntax": "Needs improvement",
+        "color": "#e74c3c",
+        "context": "The horse faces challenges with attention, responsiveness, or behavior. Adjustments in training approach or environment may help address these issues in future sessions."
+      },
+      "F": {
+        "syntax": "No improvement",
+        "color": "#f0003c",
+        "context": "The session lacks progress, with the horse showing significant resistance or discomfort. A re-evaluation of training methods or an assessment of external factors may be necessary."
+      },
+      "*": {
+        "syntax": "No Grade",
+        "color": "#f0003c",
+        "context": "The session was ungraded, potentially due to an incomplete session, unforeseen interruption, or a non-evaluative day for rest or recovery."
+      }
+    };
+
+    // messages
+    const _noRecords = `<div class="alert alert-light h6" role="alert">No Session Records Found</div>`;
+    const _loggedOut = `<div class="alert alert-warning h6" role="alert">You have been logged out of EquiPath</div>`;
+    const _notLoggedIn = `<div class="alert alert-warning h6" role="alert">Must be Logged In to add new sessions</div>`;
+
+    // UI/UX
+    // Session Form / List
+    const mainContent = document.getElementById("topMain");
+    const collapseForm = bootstrap.Collapse.getOrCreateInstance(document.getElementById('collapseForm'));
+    const sessionFormView = document.getElementById("sessionForm");
+    const sessionForm = document.getElementById("training-form");
+    const collapseList = bootstrap.Collapse.getOrCreateInstance(document.getElementById('collapseList'));
+    const sessionListView = document.getElementById("sessionList");
+    const sessionList = document.getElementById("session-list");
+    // clear form on tab close
+    sessionFormView.addEventListener("hide.bs.collapse", function () {
+      sessionForm.reset();
+      sessionForm.sessionId.value = "";
+      sessionListView.scrollIntoView();
+    });
+
+    // Sign-In / Sign-Out
+    const signInButton = document.getElementById("signInButton");
+    const signOutButton = document.getElementById("signOutButton");
+
+
+    // Auth/SignIn
+
+    const userSignIn = async () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = trainer.name = result.user;
+          trainer.email = result.email;
+          trainer.active = true;
+          // console.log(user);
+        }).catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message
+        })
+    }
+
+    const userSignOut = async () => {
+      signOut(auth).then(() => {
+
+        // clear data
+        // const sessionList = document.getElementById('session-list');
+        // sessionList.innerHTML = '';
+        trainer.active = false;
+        //logOutMsg.show();
+        sessionList.innerHTML = _loggedOut;
+
+
+      }).catch((error) => { });
+    }
+    signInButton.addEventListener('click', userSignIn);
+    signOutButton.addEventListener('click', userSignOut);
+
+    onAuthStateChanged(auth, (user) => {
+
+      if (user) {
+        signInButton.style.visibility = "hidden";
+        signOutButton.style.visibility = "visible";
+        // addSessionButton.style.visibility = "visiable";
+        // enable form submit
+        document.getElementById('submit-session').disable = false;
+        // set user 
+        trainer.name = user.displayName;
+        trainer.email = user.email;
+        trainer.active = trainer.auth = true;
+        // set Journal path
+        journalPath = 'Journal/' + user.email + '/Sessions';
+        fetchSessions();
+
+      } else {
+        trainer.name = "Guest";
+        trainer.email = "";
+        trainer.active = trainer.auth = false;
+        sessionList.innerHTML = _notLoggedIn;
+        signInButton.style.visibility = "visible";
+        signOutButton.style.visibility = "hidden";
+        collapseForm.hide();
+      }
+      sessionListView.scrollIntoView();
+      collapseList.show();
+    });
+
+    // FireStore
+    // Fetch sessions from Firestore and render
+    async function fetchSessions() {
+
+      const journalRef = collection(journals, journalPath);
+      const q = query(journalRef, orderBy("Date", "desc"));
+      const querySnapshot = await getDocs(q);
+      const sessions = querySnapshot.docs.map(doc => { var rec = doc.data(); rec.id = doc.id; return rec });
+
+      renderSessions(groupSessionsByMonth(sessions));
+
+    }
+    // Render
+    // Function to group sessions by month and horse
+    function groupSessionsByMonth(sessions) {
+
+      const groupedData = {};
+      sessions.forEach(session => {
+        const date = new Date(session.Date);
+        const monthYear = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+        if (!groupedData[monthYear]) {
+          groupedData[monthYear] = {};
+        }
+        if (!groupedData[monthYear][session.HorseName]) {
+          groupedData[monthYear][session.HorseName] = [];
+        }
+        groupedData[monthYear][session.HorseName].push(session);
+      });
+      return groupedData;
+    }
+    // Function to render the grouped sessions with collapsible notes
+    function renderSessions(groupedSessions) {
+
+      collapseList.show();
+      sessionList.innerHTML = '';
+      if (groupedSessions === undefined || groupedSessions === null) { // Display Getting Started
+        //const gettingStartedDiv = document.createElement('div');
+        //gettingStartedDiv.innerHtml = `<strong>Getting Started</strong>`;
+        // console.log(gettingStartedDiv);
+        sessionList.innerHTML = _noRecords;
+      }
+      else {
+        let collapseId = 1;
+        // Render List
+        for (const month in groupedSessions) {
+
+          const monthDiv = document.createElement('div');
+          monthDiv.classList.add('month-group');
+          monthDiv.innerHTML = `<h3>${month}</h3>`;
+
+          for (const horse in groupedSessions[month]) {
+            const horseDiv = document.createElement('div');
+            horseDiv.classList.add('horse-group');
+            horseDiv.innerHTML = `<h4>Horse: ${horse}</h4>`;
+
+            const sessionUl = document.createElement('ul');
+            //sessionUl.id = "sessionData";
+            sessionUl.classList.add('list-group');
+
+            groupedSessions[month][horse].forEach(session => {
+              const sessionLi = document.createElement('li');
+              sessionLi.classList.add('list-group-item');
+              sessionLi.innerHTML = `
+                <strong>Date:</strong> ${session.Date} - ${session.TimeOfDay} </br> 
+                    <strong>Mood:</strong> 
+                    <span style="color:${horseMood[session.HorseMood].color}; font-weight: bold;">
+                        ${session.HorseMood}</span> - ${horseMood[session.HorseMood].syntax} </br>
+                    <strong>Session Type:</strong> ${session.SessionType} </br> 
+                    <strong>Grade:</strong> 
+                    <span style="color:${sessionGrade[session.SessionGrade].color}; font-weight: bold;">
+                        ${session.SessionGrade}</span> - ${sessionGrade[session.SessionGrade].syntax}
+                    </br> 
+                    <strong>Trainer:</strong> ${session.TrainerName} 
+                    </br>
+                    <div class="collapse" id="notes${collapseId}">
+                        <strong>Notes:</strong> ${session.SessionNotes}<br>
+                        <strong>Additional Notes:</strong> ${session.AdditionalNotes || 'No additional notes.'}
+                    </div>
+                    <button class="btn btn-sm custom-btn detail" name="${session.id}" data-bs-toggle="collapse" href="#notes${collapseId}" role="button" aria-expanded="false" aria-controls="notes${collapseId}">
+                        Details
+                    </button>
+                    </br>
+                    <button class="btn btn-sm btn-primary edit float-end"  id="${session.id}" role="button" aria-expanded="false" aria-controls="notes${collapseId}">
+                    Edit</button>`;
+              sessionUl.appendChild(sessionLi);
+              collapseId++;
+            });
+            horseDiv.appendChild(sessionUl);
+            monthDiv.appendChild(horseDiv);
+          }
+          sessionList.appendChild(monthDiv);
+
+          // Assign events to edit buttons
+          const buttonEvents = document.querySelectorAll('.edit');
+          buttonEvents.forEach(element => {
+            element.addEventListener('click', (e) => {
+              // console.log(element);
+              // Handle the click event here
+              getDocumentById(element.id);
+            });
+          });
+        }
+      }
+      sessionListView.scrollIntoView();
+    }
+
+    // Fetch single session 
+    async function getDocumentById(documentId) {
+      collapseForm.show();
+      const docRef = doc(journals, journalPath, documentId);
+
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          // Load form for updating
+
+          populateSessionForm(docSnap.id, docSnap.data());
+        } else {
+          console.log('No such document!');
+        }
+      } catch (error) {
+        console.error('Error getting document:', error);
+      }
+    }
+
+    // Cancel Session
+    document.getElementById('cancel-session').addEventListener('click', async function (e) {
+      e.preventDefault();
+      collapseForm.hide();
+      //sessionForm.reset();
+    });
+
+    // Add/Update Session
+    document.getElementById('training-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      let sessionData = {
+        HorseName: sessionForm.horseName.value,
+        TrainerName: sessionForm.trainerName.value,
+        Date: sessionForm.sessionDate.value,
+        TimeOfDay: sessionForm.timeOfDay.value,
+        HorseMood: sessionForm.horseMood.value,
+        SessionType: sessionForm.trainingType.value,
+        SessionNotes: sessionForm.notes.value || '',
+        SessionGrade: sessionForm.grade.value || '',
+        AdditionalNotes: sessionForm.additionalNotes.value || ''
+      }
+
+      if (sessionForm.sessionId.value === "") {
+        if (!trainer.auth) {
+          sessionForm.reset();
+          collapseForm.hide();
+          sessionListView.scrollIntoView();
+          sessionList.innerHTML = _notLoggedIn;
+          collapseList.show();
+          return;
+        }
+        // Add Session
+        try {
+          const newDocRef = await addDoc(collection(journals, journalPath), sessionData);
+        } catch (error) {
+          console.error("Error adding document:", error);
+        }
+
+      }
+      else {
+        // Update Session
+        try {
+          const docRef = doc(journals, journalPath, sessionForm.sessionId.value);
+          await setDoc(docRef, sessionData);
+        } catch (error) {
+          console.error("Error updating document:", error);
+        }
+      }
+
+      // clear form and re-render
+      sessionForm.reset();
+      sessionForm.sessionId.value = "";
+      collapseForm.hide();
+      fetchSessions();
+    });
+
+    // Populate Session Form
+    function populateSessionForm(id, session) {
+
+      sessionForm.reset();
+      sessionForm.sessionId.value = id;
+      sessionForm.horseName.value = session.HorseName;
+      sessionForm.trainerName.value = session.TrainerName;
+      sessionForm.sessionDate.value = session.Date;
+      sessionForm.timeOfDay.value = session.TimeOfDay;
+      sessionForm.horseMood.value = session.HorseMood;
+      sessionForm.trainingType.value = session.SessionType;
+      sessionForm.notes.value = session.SessionNotes;
+      sessionForm.grade.value = session.SessionGrade;
+      sessionForm.additionalNotes.value = session.AdditionalNotes;
+
+      sessionFormView.scrollIntoView();
+
+    };
+
+    collapseList.show();
+  </script>
+</body>
+
+</html>

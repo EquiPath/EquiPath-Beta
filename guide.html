@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horse Training Journal</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body class="d-flex flex-column bg-secondary p3">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">EquiPath Lite</a>
+      <a class="btn btn-sm btn-outline-success d-flex" href="index.html" id="Return">Return</a>
+    </div>
+    </div>
+  </nav>
+
+  <main class="flex-shrink-0" id="mainContent">
+    <div class="accordion p-1" id="uiMain">
+      <!-- getting started info -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGuide">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseGuide" aria-expanded="true" aria-controls="collapseGuide">
+            <h3 class="card-title">Getting Started</h3>
+          </button>
+        </h2>
+        <div id="collapseGuide" class="accordion-collapse collapse" aria-labelledby="headingGuide">
+          <div class="accordion-body">
+
+            <div class="card-body">
+
+              <!-- Welcome Section -->
+              <section class="mb-4">
+                <h3 class="brand-blue">Welcome to EquiPath!</h3>
+                <p>EquiPath is a web app designed to help you track and evaluate your horse's training progress,
+                  with a focus on behavior modification, trust, respect, and partnership.</p>
+                <p><strong>Key Features:</strong> Quick session entry, detailed tracking lists, an informative Guide
+                  section, and future updates like data trends and progress summaries.</p>
+              </section>
+
+              <!-- Signing Up -->
+              <section class="mb-4">
+                <h4 class="brand-blue">Signing Up</h4>
+                <p>EquiPath requires a Google account. Simply click the "Log-In" button to sign up and get started
+                  securely.</p>
+              </section>
+
+              <!-- Navigating EquiPath -->
+              <section class="mb-4">
+                <h4 class="brand-blue">Navigating EquiPath</h4>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <strong>Training Sessions Tab:</strong> View past sessions listed by month, horse, and
+                    session details to easily track progress.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Add Session Form:</strong> Add new training sessions by filling out fields for horse
+                    mood, training exercises, and session grade.
+                  </li>
+                </ul>
+              </section>
+
+              <!-- Guide Section -->
+              <section class="mb-4">
+                <h4 class="brand-blue">Using the Guide Section</h4>
+                <p>The Guide section provides explanations on:</p>
+                <ul>
+                  <li><strong>Exercises:</strong> Details on each training exercise.</li>
+                  <li><strong>Horse Moods:</strong> How to interpret and record different moods.</li>
+                  <li><strong>Session Grades:</strong> Guidance for grading each session.</li>
+                  <li><strong>Insights:</strong> Tips for interpreting and using future data trends.</li>
+                </ul>
+              </section>
+
+              <!-- Getting the Most Out of EquiPath -->
+              <section class="mb-4">
+                <h4 class="brand-blue">Getting the Most Out of EquiPath</h4>
+                <p>Regularly review the Training Sessions tab to observe patterns and track progress. Stay tuned for
+                  updates, including data trends and progress summaries!</p>
+              </section>
+
+              <!-- Support Section -->
+              <section class="mb-4">
+                <h4 class="brand-blue">Support</h4>
+                <p>If you have questions or encounter any issues, please reach out to our support team at <a
+                    href="mailto:support@equipath.com" class="brand-orange">support@equipath.com</a>.</p>
+              </section>
+
+            </div>
+          </div>
+        </div>
+        <!-- training info -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTraining">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTraining" aria-expanded="true" aria-controls="collapseTraining">
+              <h3 class="card-title">Exercises</h3>
+            </button>
+          </h2>
+          <div id="collapseTraining" class="accordion-collapse collapse" aria-labelledby="headingTraining"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="container mt-4">
+                <h1 class="text-center mb-4">Horse Exercises</h1>
+                <div class="">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Lunging</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Helps the horse learn voice commands, develop
+                        balance, and
+                        improve fitness.</p>
+                      <p class="card-text"><strong>Description:</strong> In a controlled circle, the horse moves at
+                        different
+                        gaits (walk, trot, canter) while the trainer guides from the center. Variations include changing
+                        directions, speeds, and distances.</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Groundwork Exercises</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Builds respect and establishes trust between horse
+                        and
+                        handler.</p>
+                      <p class="card-text"><strong>Description:</strong> Exercises can include yielding the
+                        hindquarters, backing
+                        up, and sending exercises. Groundwork prepares the horse for riding or other in-hand work.</p>
+                    </div>
+                  </div>
+
+
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Pole Work</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Develops rhythm, coordination, and balance.</p>
+                      <p class="card-text"><strong>Description:</strong> Trotting or walking over ground poles, either
+                        in a
+                        straight line or in varied patterns. Can be elevated for additional difficulty and
+                        muscle-building.</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Lateral Work</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Enhances flexibility and body control.</p>
+                      <p class="card-text"><strong>Description:</strong> Includes exercises like leg yields,
+                        shoulder-ins, and
+                        haunches-ins, encouraging the horse to move laterally or "sideways" to improve suppleness.</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Transitions Between Gaits</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Teaches responsiveness and strengthens muscles.</p>
+                      <p class="card-text"><strong>Description:</strong> Moving from one gait to another (e.g., walk to
+                        trot, trot
+                        to canter), then back down. Builds smoothness and responsiveness.</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Circles and Serpentines</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Improves balance, flexibility, and engagement of
+                        the
+                        hindquarters.</p>
+                      <p class="card-text"><strong>Description:</strong> Riding circles of varying sizes (10m, 20m) and
+                        serpentines encourages the horse to bend, which is critical for balance.</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Backing Up</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Develops muscle in the hindquarters and encourages
+                        obedience.
+                      </p>
+                      <p class="card-text"><strong>Description:</strong> The horse takes a few steps backward on cue,
+                        strengthening hind muscles and improving response to cues.</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Desensitization Exercises</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Builds the horse’s confidence and trust.</p>
+                      <p class="card-text"><strong>Description:</strong> Introduces the horse to various stimuli (tarps,
+                        flags,
+                        water, etc.) to reduce spooking and increase calmness.</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Yielding to Pressure</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Reinforces respect and teaches softness to
+                        pressure.</p>
+                      <p class="card-text"><strong>Description:</strong> The horse learns to move away from pressure on
+                        different
+                        parts of its body (shoulders, hindquarters, face), preparing it for refined movements.</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Halter and Lead Training</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Teaches good ground manners and responsiveness.</p>
+                      <p class="card-text"><strong>Description:</strong> The horse is taught to walk, stop, turn, and
+                        back up on a
+                        lead line, emphasizing control, obedience, and respect.</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Liberty Work</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Enhances trust and connection between horse and
+                        handler.</p>
+                      <p class="card-text"><strong>Description:</strong> Working with the horse without ropes or tack,
+                        relying
+                        solely on body language and trust. This deepens the bond and promotes responsiveness and
+                        understanding.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Trail Work</h5>
+                      <p class="card-text"><strong>Purpose:</strong> Builds confidence, navigational skills, and stamina
+                        in
+                        different environments.</p>
+                      <p class="card-text"><strong>Description:</strong> Introducing the horse to trails, navigating
+                        natural
+                        obstacles, and adjusting to varied terrains to increase adaptability and confidence.</p>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+        <!-- horse mood info -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingMood">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseMood" aria-expanded="true" aria-controls="collapseMood">
+              <h3 class="card-title">Horse Mood</h3>
+            </button>
+          </h2>
+          <div id="collapseMood" class="accordion-collapse collapse" aria-labelledby="headingMood"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="container">
+                <!-- Mood: Calm -->
+                <div class="alert text-white" style="background-color: #27ae60;" role="alert">
+                  <strong>Calm:</strong> The horse is relaxed and comfortable, showing steady responsiveness and ease in
+                  the
+                  environment.
+                </div>
+
+                <!-- Mood: Focused -->
+                <div class="alert text-white" style="background-color: #2980b9;" role="alert">
+                  <strong>Focused:</strong> The horse is highly attentive, responsive to cues, and actively engaged in
+                  the exercises.
+                </div>
+
+                <!-- Mood: Playful -->
+                <div class="alert text-white" style="background-color: #f39c12;" role="alert">
+                  <strong>Playful:</strong> The horse is energetic and spirited, possibly showing a sense of curiosity
+                  and fun during
+                  the session.
+                </div>
+
+                <!-- Mood: Anxious -->
+                <div class="alert text-white" style="background-color: #e67e22;" role="alert">
+                  <strong>Anxious:</strong> The horse appears tense or uneasy, possibly distracted by the environment or
+                  showing signs
+                  of nervousness.
+                </div>
+
+                <!-- Mood: Stubborn -->
+                <div class="alert text-white" style="background-color: #e74c3c;" role="alert">
+                  <strong>Stubborn:</strong> The horse is showing resistance or reluctance to follow cues, requiring
+                  extra patience
+                  and guidance.
+                </div>
+
+                <!-- Mood: Aggressive -->
+                <div class="alert text-white" style="background-color: #c0392b;" role="alert">
+                  <strong>Aggressive:</strong> The horse displays strong resistance or assertive behavior, potentially
+                  due to
+                  discomfort or stress.
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- horse grade info -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingGrade">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGrade" aria-expanded="true" aria-controls="collapseGrade">
+              <h3 class="card-title">Session Grade</h3>
+            </button>
+          </h2>
+          <div id="collapseGrade" class="accordion-collapse collapse" aria-labelledby="headingGrade"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="container mt-4">
+                <!-- Grade A -->
+                <div class="p-3 mb-3" style="background-color: #27ae60; color: black;">
+                  <strong>A - Excellent Progress</strong>
+                  <p><strong>Description:</strong> The horse demonstrates a strong grasp of skills, showing consistency
+                    and
+                    high
+                    engagement.</p>
+                  <p><strong>Improvement Suggestions:</strong> To maintain momentum, consider introducing more advanced
+                    skills
+                    or refining current exercises to enhance precision and responsiveness.</p>
+                </div>
+
+                <!-- Grade B -->
+                <div class="p-3 mb-3" style="background-color: #2ecc71; color: black;">
+                  <strong>B - Good Progress</strong>
+                  <p><strong>Description:</strong> The horse shows steady progress and responds well to cues.</p>
+                  <p><strong>Improvement Suggestions:</strong> Increase complexity gradually, focusing on areas needing
+                    more
+                    reinforcement to deepen learning and build confidence.</p>
+                </div>
+
+                <!-- Grade C -->
+                <div class="p-3 mb-3" style="background-color: #f1c40f; color: black;">
+                  <strong>C - Some Progress</strong>
+                  <p><strong>Description:</strong> The horse has shown partial success but may need more focus on
+                    certain
+                    areas.
+                  </p>
+                  <p><strong>Improvement Suggestions:</strong> Break tasks into smaller steps and use positive
+                    reinforcement
+                    to
+                    build motivation and focus.</p>
+                </div>
+
+                <!-- Grade D -->
+                <div class="p-3 mb-3" style="background-color: #e74c3c; color: black;">
+                  <strong>D - Needs Improvement</strong>
+                  <p><strong>Description:</strong> The horse faces challenges with attention or responsiveness.</p>
+                  <p><strong>Improvement Suggestions:</strong> Simplify exercises, shorten session length, or focus on
+                    familiar
+                    tasks. Investigate any possible environmental or behavioral triggers.</p>
+                </div>
+
+                <!-- Grade F -->
+                <div class="p-3 mb-3" style="background-color: #f0003c; color: white;">
+                  <strong>F - No Improvement</strong>
+                  <p><strong>Description:</strong> The horse showed little to no progress, indicating potential stress
+                    or
+                    disengagement.</p>
+                  <p><strong>Improvement Suggestions:</strong> Re-evaluate training conditions, allow rest, or provide a
+                    supportive companion to rebuild engagement.</p>
+                </div>
+
+                <!-- No Grade -->
+                <div class="p-3 mb-3" style="background-color: #f0003c; color: white;">
+                  <strong>* - No Grade</strong>
+                  <p><strong>Description:</strong> No assessment was given, likely due to an incomplete session or rest
+                    day.
+                  </p>
+                  <p><strong>Improvement Suggestions:</strong> For future sessions, re-establish continuity or address
+                    any
+                    interruptions to maintain consistency.</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- training insight info  -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingInsight">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseInsight" aria-expanded="true" aria-controls="collapseInsight">
+              <h3 class="card-title">Insights</h3>
+            </button>
+          </h2>
+          <div id="collapseInsight" class="accordion-collapse collapse" aria-labelledby="headingInsight"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="container mt-5">
+                <h2 class="text-center mb-4">Maximizing Horse Training: Combining Grades and Moods</h2>
+                <p class="lead">Understanding both training <strong>grade</strong> and <strong>mood</strong> helps you
+                  tailor sessions
+                  for optimal results. Here’s how each combination can guide improvements.</p>
+
+                <!-- Grade A - Excellent Progress -->
+                <div class="p-3 mb-3" style="background-color: #27ae60; color: white;">
+                  <h3>A - Excellent Progress</h3>
+                  <p><strong>Mood Considerations:</strong> Calm, Focused</p>
+                  <p><strong>Description:</strong> Shows strong grasp of skills, high engagement, and readiness for new
+                    challenges.
+                  </p>
+                  <p><strong>Improvement Suggestions:</strong> Refine advanced exercises and keep sessions engaging to
+                    build
+                    precision.</p>
+                  <p><strong>Mood Adjustments:</strong> If playful or unfocused, keep tasks varied and enjoyable to
+                    direct
+                    energy
+                    positively.</p>
+                </div>
+
+                <!-- Grade B - Good Progress -->
+                <div class="p-3 mb-3" style="background-color: #2ecc71; color: white;">
+                  <h3>B - Good Progress</h3>
+                  <p><strong>Mood Considerations:</strong> Focused, Playful</p>
+                  <p><strong>Description:</strong> Making steady progress, responds well to cues.</p>
+                  <p><strong>Improvement Suggestions:</strong> Gradually increase complexity, reinforce weak spots
+                    patiently.</p>
+                  <p><strong>Mood Adjustments:</strong> For an anxious mood, simplify tasks and provide praise. For
+                    playful,
+                    add
+                    engaging activities with structure.</p>
+                </div>
+
+                <!-- Grade C - Some Progress -->
+                <div class="p-3 mb-3" style="background-color: #f1c40f; color: black;">
+                  <h3>C - Some Progress</h3>
+                  <p><strong>Mood Considerations:</strong> Playful, Anxious</p>
+                  <p><strong>Description:</strong> Partial success; may struggle with focus on certain tasks.</p>
+                  <p><strong>Improvement Suggestions:</strong> Break down exercises and use positive reinforcement to
+                    build
+                    motivation.</p>
+                  <p><strong>Mood Adjustments:</strong> For distraction, use short attention tasks with rewards. For
+                    anxiety, create a
+                    calm, secure environment.</p>
+                </div>
+
+                <!-- Grade D - Needs Improvement -->
+                <div class="p-3 mb-3" style="background-color: #e74c3c; color: white;">
+                  <h3>D - Needs Improvement</h3>
+                  <p><strong>Mood Considerations:</strong> Stubborn, Anxious</p>
+                  <p><strong>Description:</strong> Faces challenges with attention or responsiveness, indicating
+                    possible
+                    discomfort
+                    or uncertainty.</p>
+                  <p><strong>Improvement Suggestions:</strong> Simplify tasks, shorten sessions, and use familiar
+                    exercises.
+                  </p>
+                  <p><strong>Mood Adjustments:</strong> Identify triggers causing stubbornness; avoid overwhelming the
+                    horse
+                    with
+                    complex tasks.</p>
+                </div>
+
+                <!-- Grade F - No Improvement -->
+                <div class="p-3 mb-3" style="background-color: #f0003c; color: white;">
+                  <h3>F - No Improvement</h3>
+                  <p><strong>Mood Considerations:</strong> Aggressive, Stubborn</p>
+                  <p><strong>Description:</strong> Minimal engagement, possibly due to stress or frustration with
+                    training.
+                  </p>
+                  <p><strong>Improvement Suggestions:</strong> Focus on reducing stress, consider rest, or provide
+                    companionship for
+                    support.</p>
+                  <p><strong>Mood Adjustments:</strong> Begin with low-pressure activities to restore calm before
+                    reintroducing
+                    training.</p>
+                </div>
+
+                <!-- No Grade -->
+                <div class="p-3 mb-3" style="background-color: #f0003c; color: white;">
+                  <h3>* - No Grade</h3>
+                  <p><strong>Mood Considerations:</strong> Any</p>
+                  <p><strong>Description:</strong> Session incomplete or a non-evaluative day; mood could impact future
+                    sessions.</p>
+                  <p><strong>Improvement Suggestions:</strong> Re-establish continuity with familiar tasks to maintain
+                    consistency.
+                  </p>
+                  <p><strong>Mood Adjustments:</strong> For anxious or unfocused horses, ensure comfort with simple
+                    exercises to help
+                    re-engage.</p>
+                </div>
+
+                <footer class="mt-5 text-center">
+                  <p>&copy; 2024 Cowboy Strong</p>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+  </main>
+</body>
+
+</html>
