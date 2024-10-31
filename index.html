@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand brand-orange h5" href="#">EquiPath Lite</a>
-        <button class="btn btn-sm btn-outline-success d-flex" id="signInButton">Sign In</button>
+        <button class="btn btn-sm btn-outline-success fw-bold d-flex" id="signInButton">Sign In</button>
       </div>
     </nav>
   </header>
@@ -156,7 +156,7 @@
       <h5 class="card-header brand-blue">Welcome to EquiPath!</h5>
       <div class="card-body">
         <section class="mb-4">
-          <p>EquiPath is a web app designed to help you track and evaluate your horse's training progress,
+          <p>EquiPath is a mobile web app designed to help you track and evaluate your horse's training progress,
             with a focus on behavior modification, trust, respect, and partnership.</p>
           <p><strong>Key Features:</strong> Quick session entry, detailed tracking lists, an informative Guide
             section, and future updates like data trends and progress summaries.</p>
@@ -166,8 +166,9 @@
     <div style="height: 40px;"></div>
   </main>
   <footer class="footer fixed-bottom bg-brand-blue">
-    <a type="button" class="btn btn-sm brand-orange" href="guide.html">Guide</a>
-    <button type="button" class="btn btn-sm brand-orange" id="signOutButton">Sign Out</button>
+    <a type="button" class="btn btn-md brand-orange fw-bold" href="guide.html">Guide</a>
+    <button type="button" class="btn btn-md brand-orange fw-bold" id="signOutButton">Sign Out</button>
+    <button type="button" class="btn btn-md brand-orange float-end" id="scrollTop">^</button>
   </footer>
 
   <script type="module">
@@ -274,9 +275,9 @@
     };
 
     // messages
-    const _noRecords = `<div class="alert alert-light h6" role="alert">No Session Records Found</div>`;
-    const _loggedOut = `<div class="alert alert-warning h6" role="alert">You have been logged out of EquiPath</div>`;
-    const _notLoggedIn = `<div class="alert alert-warning h6" role="alert">Must be Logged In to add new sessions</div>`;
+    const _noRecords = `<div class="alert alert-light fw-bold" role="alert">No Session Records Found</div>`;
+    const _loggedOut = `<div class="alert alert-warning fw-bold" role="alert">You have been signed out of EquiPath</div>`;
+    const _notLoggedIn = `<div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions</div>`;
 
     // UI/UX
     // Session Form / List
@@ -294,6 +295,14 @@
       sessionListView.scrollIntoView();
     });
 
+    // Scroll to top-of-page
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }
+    const scrollToTop = document.getElementById("scrollTop");
+    scrollToTop.addEventListener('click', topFunction);
+    
     // Sign-In / Sign-Out
     const signInButton = document.getElementById("signInButton");
     const signOutButton = document.getElementById("signOutButton");
