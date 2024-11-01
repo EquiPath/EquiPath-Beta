@@ -513,38 +513,40 @@
     <button type="button" class="btn btn-md brand-orange float-end" id="scrollTop">^</button>
   </footer>
   <script type="module">
-    document.addEventListener("DOMContentLoaded", function () {
-      // Offset for fixed headers (adjust as necessary)
-      const offset = 130;
+  // Offset for scrolling (adjust as necessary)
+  const offset = 120;
+    // Function to scroll to an accordion item with an offset
+    function scrollToAccordionItem(targetCollapse) {
+      setTimeout(() => {
+        const rect = targetCollapse.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetPosition = rect.top + scrollTop - offset;
 
-      // Get the anchor from the URL (e.g., #collapseOne or #collapseTwo)
-      const hash = window.location.hash;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }, 150); // Adjust delay if needed
+    }
 
-      if (hash) {
-        // Try to find the target accordion collapse element by the hash
-        const targetCollapse = document.querySelector(hash);
+    // Listen for accordion item show events
+    const accordion = document.getElementById('uiMain');
+    accordion.addEventListener('show.bs.collapse', function (event) {
+      scrollToAccordionItem(event.target);
+    });
 
+    // Check if there is a hash in the URL on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.location.hash) {
+        const targetCollapse = document.querySelector(window.location.hash);
         if (targetCollapse) {
-          // Open the target accordion item
-          const bsCollapse = new bootstrap.Collapse(targetCollapse, {
-            toggle: true
-          });
-
-          // Scroll to the accordion item with an offset
-          setTimeout(() => {
-            const rect = targetCollapse.getBoundingClientRect();
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const targetPosition = rect.top + scrollTop - offset;
-
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
-          }, 150); // Adjust delay if needed
+          // Open the accordion item if the hash matches an item ID
+          new bootstrap.Collapse(targetCollapse, { toggle: true });
+          scrollToAccordionItem(targetCollapse);
         }
       }
     });
-      // Scroll to top-of-page
+    // Scroll to top-of-page
       function topFunction() {
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
