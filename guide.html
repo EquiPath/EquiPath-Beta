@@ -496,7 +496,6 @@
                     exercises to help
                     re-engage.</p>
                 </div>
-
                 <footer class="mt-5 text-center">
                   <p>&copy; 2024 Cowboy Strong</p>
                 </footer>
@@ -504,21 +503,23 @@
             </div>
           </div>
         </div>
-
+    </div>
+    <div class="container text-center">
+      <p>&copy; 2024 EquiPath by Cowboy Strong. All rights reserved.</p>
     </div>
   </main>
+  <div style="height: 40px;"></div>
   <footer class="footer fixed-bottom bg-brand-blue">
     <button type="button" class="btn btn-md brand-orange float-end" id="scrollTop">^</button>
   </footer>
   <script type="module">
-    
   // Function to open a specific accordion item based on anchor link
   function openAccordionItem(anchorId) {
     const accordionItem = bootstrap.Collapse.getOrCreateInstance(document.getElementById(anchorId));
     if (accordionItem) {
-      console.log(accordionItem);
       // Trigger the click event on the accordion header to open it
       accordionItem.show();
+      // add .scrollIntoView();
     }
   }
 
