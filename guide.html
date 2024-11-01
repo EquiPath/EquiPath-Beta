@@ -95,7 +95,8 @@
           </div>
         </div>
         <!-- training info -->
-        <div class="accordion-item">
+      </div>
+        <div class="accordion-item" id="trainingAccordion">
           <h2 class="accordion-header" id="headingTraining">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#collapseTraining" aria-expanded="true" aria-controls="collapseTraining">
@@ -120,7 +121,7 @@
                         directions, speeds, and distances.</p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Groundwork Exercises</h5>
@@ -132,9 +133,9 @@
                         up, and sending exercises. Groundwork prepares the horse for riding or other in-hand work.</p>
                     </div>
                   </div>
-
-
-
+        
+        
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Pole Work</h5>
@@ -145,7 +146,7 @@
                         muscle-building.</p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Lateral Work</h5>
@@ -155,7 +156,7 @@
                         haunches-ins, encouraging the horse to move laterally or "sideways" to improve suppleness.</p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Transitions Between Gaits</h5>
@@ -165,7 +166,7 @@
                         to canter), then back down. Builds smoothness and responsiveness.</p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Circles and Serpentines</h5>
@@ -176,7 +177,7 @@
                         serpentines encourages the horse to bend, which is critical for balance.</p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Backing Up</h5>
@@ -187,7 +188,7 @@
                         strengthening hind muscles and improving response to cues.</p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Desensitization Exercises</h5>
@@ -197,7 +198,7 @@
                         water, etc.) to reduce spooking and increase calmness.</p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Yielding to Pressure</h5>
@@ -208,7 +209,7 @@
                         parts of its body (shoulders, hindquarters, face), preparing it for refined movements.</p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Halter and Lead Training</h5>
@@ -218,7 +219,7 @@
                         lead line, emphasizing control, obedience, and respect.</p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Liberty Work</h5>
@@ -231,7 +232,7 @@
                       </p>
                     </div>
                   </div>
-
+        
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Trail Work</h5>
@@ -243,16 +244,15 @@
                         obstacles, and adjusting to varied terrains to increase adaptability and confidence.</p>
                     </div>
                   </div>
-
-
+        
+        
                 </div>
               </div>
-
-
+        
+        
             </div>
           </div>
         </div>
-      </div>
         <!-- horse mood info -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingMood">
@@ -312,7 +312,7 @@
         </div>
 
         <!-- horse grade info -->
-        <div class="accordion-item">
+        <div class="ccoardion-item">
           <h2 class="accordion-header" id="headingGrade">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#collapseGrade" aria-expanded="true" aria-controls="collapseGrade">
@@ -513,26 +513,37 @@
     <button type="button" class="btn btn-md brand-orange float-end" id="scrollTop">^</button>
   </footer>
   <script type="module">
-  // Function to open a specific accordion item based on anchor link
-  function openAccordionItem(anchorId) {
-    const accordionItem = bootstrap.Collapse.getOrCreateInstance(document.getElementById(anchorId));
-    if (accordionItem) {
-      // Trigger the click event on the accordion header to open it
-      accordionItem.show();
-      // add .scrollIntoView();
-    }
-  }
+    document.addEventListener("DOMContentLoaded", function () {
+      // Offset for fixed headers (adjust as necessary)
+      const offset = 130;
 
-  // Get the current URL and check for anchor
-  const url = window.location.href;
-  const anchor = url.split('#')[1];
+      // Get the anchor from the URL (e.g., #collapseOne or #collapseTwo)
+      const hash = window.location.hash;
 
-  // If there's an anchor, open the corresponding accordion item
-  if (anchor) {
-    openAccordionItem(anchor);
-  } 
-  
+      if (hash) {
+        // Try to find the target accordion collapse element by the hash
+        const targetCollapse = document.querySelector(hash);
 
+        if (targetCollapse) {
+          // Open the target accordion item
+          const bsCollapse = new bootstrap.Collapse(targetCollapse, {
+            toggle: true
+          });
+
+          // Scroll to the accordion item with an offset
+          setTimeout(() => {
+            const rect = targetCollapse.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const targetPosition = rect.top + scrollTop - offset;
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }, 150); // Adjust delay if needed
+        }
+      }
+    });
       // Scroll to top-of-page
       function topFunction() {
         document.body.scrollTop = 0; // For Safari
