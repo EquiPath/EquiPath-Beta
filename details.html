@@ -51,10 +51,29 @@
   </div>
 
   <div class="container content">
-    <h1 class="text-center mb-4">Details Page Title</h1>
-    <p>This is the details page content. Add detailed information, images, or other elements as needed. Customize this
-      content area for specific page details.</p>
-    <p id="hashContent" class="text-muted"></p> <!-- Area to display hash details -->
+    <h1 class="text-center mb-4">Details</h1>
+<div class="horse-group"><h4>Horse: Henry</h4><ul class="list-group"><li class="list-group-item">
+                <strong>Date:</strong> 2024-10-30 - Afternoon <br> 
+                    <strong>Mood:</strong> 
+                    <span style="color:#f39c12; font-weight: bold;">
+                        Playful</span> - Energetic and curious <br>
+                    <strong>Session Type:</strong> Backing Up <br> 
+                    <strong>Grade:</strong> 
+                    <span style="color:#f1c40f; font-weight: bold;">
+                        C</span> - Some progress
+                    <br> 
+                    <strong>Trainer:</strong> JR Hull 
+                    <br>
+                    <div class="collapse" id="notes1">
+                        <strong>Notes:</strong> <br>
+                        <strong>Additional Notes:</strong> No additional notes.
+                    </div>
+                    <button class="btn btn-sm custom-btn detail" name="2WFNmTGC9qhBRbJWeWfi" data-bs-toggle="collapse" href="#notes1" role="button" aria-expanded="false" aria-controls="notes1">
+                        Details
+                    </button>
+                    <br>
+                    <button class="btn btn-sm btn-primary edit float-end" id="2WFNmTGC9qhBRbJWeWfi" role="button" aria-expanded="false" aria-controls="notes1">
+                    Edit</button></li></ul></div>    <p id="hashContent" class="text-muted"></p> <!-- Area to display hash details -->
   </div>
 
   <script>
@@ -73,15 +92,20 @@
     // Call processHash on page load
     window.onload = processHash;
 
-    // Function to email only the content inside "container content"
+    // Function to strip HTML and format content as plain text for email
     function emailContent() {
-      const content = document.querySelector(".content").innerHTML;
-      window.location.href = `mailto:?subject=Check this page&body=${encodeURIComponent(content)}`;
+      const content = document.querySelector(".content").innerText; // Get plain text only
+      const emailBody = encodeURIComponent(content);
+      window.location.href = `mailto:?subject=Check this page&body=${emailBody}`;
     }
 
-    // Function to print only the content inside "container content"
+    // Function to print only plain text content
     function printContent() {
-      window.print();
+      const content = document.querySelector(".content").innerText; // Get plain text only
+      const printWindow = window.open("", "_blank");
+      printWindow.document.write(`<pre>${content}</pre>`); // Wrap in <pre> for text formatting
+      printWindow.document.close();
+      printWindow.print();
     }
 
     // Function to close the window
