@@ -49,3 +49,100 @@ body {
   scroll-margin-top: 60px;
   scroll-margin-bottom: 0;
 }
+
+
+/* Print styling */
+@media print {
+
+  /* Hide all elements by default 
+  * {
+    display: none;
+  }
+*/
+  /* Only display the main content */
+  .content {
+    display: block;
+  }
+
+  /* Print-friendly styles for .content */
+  main.content {
+    color: #000;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    width: 100%;
+    margin: 1cm auto;
+    padding: 0;
+  }
+
+  /* Remove unnecessary shadows and borders */
+  .content .box,
+  .content .card {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  /* Control page breaks for headings and sections */
+  .content h2 {
+    page-break-before: always;
+  }
+
+  .content .no-break {
+    page-break-inside: avoid;
+  }
+
+  /* Show URLs after links in .content */
+  .content a[href]:after {
+    content: " (" attr(href) ")";
+  }
+}
+
+/* Print Style */
+@media print {
+
+  /* Hide non-essential elements */
+  header,
+  footer,
+  nav,
+  .sidebar,
+  .advertisement,
+  .ad-banner {
+    display: none;
+  }
+
+  /* Set font and colors suitable for print */
+  body {
+    color: #000;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    margin: 1cm;
+  }
+
+  /* Adjust layout for print */
+  .content {
+    width: 100%;
+    padding: 0;
+  }
+
+  /* Remove unnecessary box shadows and borders */
+  .box,
+  .card {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  /* Control page breaks 
+  h2 {
+    page-break-before: always;
+  }
+*/
+  .no-break {
+    page-break-inside: avoid;
+  }
+
+  /* Show URLs after links for reference */
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+}
