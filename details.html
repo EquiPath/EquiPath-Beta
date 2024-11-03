@@ -3,109 +3,78 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Details Page</title>
+  <title>EquiPath - Session Details</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
   <style>
-    /* Styling for the top options bar */
-    .top-buttons {
-      background-color: #f8f9fa;
-      padding: 1rem;
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .top-buttons .btn {
-      margin-left: 0.5rem;
-      font-size: 0.85rem;
-      padding: 0.25rem 0.5rem;
-      /* Smaller padding for smaller buttons */
-    }
-
-    .content {
-      padding-top: 1rem;
-    }
-
-    /* Print styling */
-    @media print {
-      body *:not(.content) {
-        display: none !important;
-      }
-
-      .content {
-        margin: 0;
-        padding: 0;
-      }
+    .icon-btn {
+      background: none;
+      border: none;
+      padding: 5px;
+      color: #333;
+      font-size: 1.2em;
     }
   </style>
 </head>
 
 <body>
+  <header>
+    <!-- Top navigation bar with Email, Print, and Close options -->
+    <div class="d-flex justify-content-end mb-3">
+      <button class="icon-btn" onclick="emailContent()" aria-label="Email">
+        <!-- Email SVG Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#032142" viewBox="0 0 24 24">
+          <path
+            d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+        </svg>
+      </button>
+      <button class="icon-btn" onclick="window.print()" aria-label="Print">
+        <!-- Print SVG Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="blue" viewBox="0 0 24 24">
+          <path
+            d="M19 8h-1V3H6v5H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-9 11H8v-4h2v4zm4 0h-2v-4h2v4zm4-4h-2v4h-2v-4h2v-1.99h-4V9h6v6z" />
+        </svg>
+      </button>
+      <button class="icon-btn" onclick="window.close()" aria-label="Close">
+        <!-- Close SVG Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6 18L18 6M6 6l12 12" stroke="red" stroke-width="2" />
+        </svg>
+      </button>
+    </div>
+  </header>
 
-  <!-- Top Options Bar with Right-Aligned Buttons -->
-  <div class="top-buttons">
-    <button onclick="emailContent()" class="btn btn-primary btn-sm">Email this page</button>
-    <button onclick="printContent()" class="btn btn-success btn-sm">Save Page</button>
-    <button onclick="closeWindow()" class="btn btn-danger btn-sm">Close Window</button>
-  </div>
-
-  <div class="container content">
-    <h1 class="text-center mb-4">Details</h1>
-<div class="horse-group"><h4>Horse: Henry</h4><ul class="list-group"><li class="list-group-item">
-                <strong>Date:</strong> 2024-10-30 - Afternoon <br> 
-                    <strong>Mood:</strong> 
-                    <span style="color:#f39c12; font-weight: bold;">
-                        Playful</span> - Energetic and curious <br>
-                    <strong>Session Type:</strong> Backing Up <br> 
-                    <strong>Grade:</strong> 
-                    <span style="color:#f1c40f; font-weight: bold;">
-                        C</span> - Some progress
-                    <br> 
-                    <strong>Trainer:</strong> JR Hull 
-                    <br>
-                    <div class="collapse" id="notes1">
-                        <strong>Notes:</strong> <br>
-                        <strong>Additional Notes:</strong> No additional notes.
-                    </div>
-                    <button class="btn btn-sm custom-btn detail" name="2WFNmTGC9qhBRbJWeWfi" data-bs-toggle="collapse" href="#notes1" role="button" aria-expanded="false" aria-controls="notes1">
-                        Details
-                    </button>
-                    <br>
-                    <button class="btn btn-sm btn-primary edit float-end" id="2WFNmTGC9qhBRbJWeWfi" role="button" aria-expanded="false" aria-controls="notes1">
-                    Edit</button></li></ul></div>    <p id="hashContent" class="text-muted"></p> <!-- Area to display hash details -->
-  </div>
-
+  <main class="content">
+    <!-- Page Content -->
+    <div class="container">
+      <h2>Training Session Details</h2>
+      <div id="session-list">  
+      </div>
+    </div>
+  </main>
   <script>
     // Function to capture URL hash and display it in the content
     function processHash() {
-      const hash = window.location.hash.slice(1); // Remove the '#' character
-      const ids = hash.split(','); // Split if there are multiple ids separated by commas
-
-      if (ids.length === 1) {
-        document.getElementById("hashContent").innerText = `Single ID found: ${ids[0]}`;
-      } else {
-        document.getElementById("hashContent").innerText = `Multiple IDs found: ${ids.join(', ')}`;
-      }
+      const hash = window.location.hash.slice(1);
+      const ids = hash.split(',');
+      document.getElementById("hashContent").innerText = ids.length === 1 ? `Single ID found: ${ids[0]}` : `Multiple IDs found: ${ids.join(', ')}`;
     }
 
     // Call processHash on page load
-    window.onload = processHash;
+    // window.onload = processHash;
 
-    // Function to strip HTML and format content as plain text for email
+    // Function to email only the content inside "container content"
     function emailContent() {
-      const content = document.querySelector(".content").innerText; // Get plain text only
+      const content = document.querySelector(".content").innerText;
       const emailBody = encodeURIComponent(content);
       window.location.href = `mailto:?subject=Check this page&body=${emailBody}`;
     }
 
-    // Function to print only plain text content
+    // Function to print only the content section
     function printContent() {
-      const content = document.querySelector(".content").innerText; // Get plain text only
-      const printWindow = window.open("", "_blank");
-      printWindow.document.write(`<pre>${content}</pre>`); // Wrap in <pre> for text formatting
-      printWindow.document.close();
-      printWindow.print();
+      window.print(); // Triggers the print dialog with CSS-only formatting
     }
 
     // Function to close the window
@@ -113,8 +82,202 @@
       window.close();
     }
   </script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js'
+    // Add Firebase products that you want to use
+    import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, query, orderBy, Timestamp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js'
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyD7ZlTdNiy0xaDtypcEvs78kU0mbvk79eE",
+      authDomain: "equipathlite.firebaseapp.com",
+      projectId: "equipathlite",
+      storageBucket: "equipathlite.appspot.com",
+      messagingSenderId: "245462160847",
+      appId: "1:245462160847:web:a76644967e759abfff6eba",
+      measurementId: "G-2GFCW09LX5"
+    };
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    // const analytics = getAnalytics(app);
+    const journals = getFirestore(app);
+
+    // data
+    var journalPath = "Journal"; // points to session documants
+    var trainerPath = "Journal/email@domain.com"; // Trainer Document
+    // Lookup Tables
+    const horseMood = {
+      "Calm": {
+        "syntax": "Relaxed and steady",
+        "color": "#27ae60",
+        "context": "The horse is relaxed, showing steady responsiveness and ease within the environment. Suitable for focus-based exercises and skill-building activities that require patience."
+      },
+      "Focused": {
+        "syntax": "Attentive and engaged",
+        "color": "#2980b9",
+        "context": "The horse is highly attentive and responsive to cues, actively engaged in the exercises. Ideal for skill refinement or introducing new tasks."
+      },
+      "Playful": {
+        "syntax": "Energetic and curious",
+        "color": "#f39c12",
+        "context": "The horse is energetic and spirited, displaying curiosity and enthusiasm. Great for exercises that encourage exploration and social interaction but may require guidance to maintain structure."
+      },
+      "Anxious": {
+        "syntax": "Alert and reactive",
+        "color": "#e67e22",
+        "context": "The horse shows signs of nervousness or tension, possibly distracted by surroundings. Beneficial to work on relaxation techniques or low-pressure exercises to build confidence."
+      },
+      "Stubborn": {
+        "syntax": "Hesitant and resistant",
+        "color": "#e74c3c",
+        "context": "The horse is resistant or reluctant to follow cues, requiring extra patience and clear guidance. Suitable for reinforcing foundational training with gentle encouragement."
+      },
+      "Aggressive": {
+        "syntax": "Aggressive - Defensive and wary",
+        "color": "#c0392b",
+        "context": "The horse displays assertive or defensive behavior, potentially due to discomfort or stress. Important to assess for any triggers or health concerns before proceeding with further training."
+      }
+    };
+
+    const sessionGrade = {
+      "A": {
+        "syntax": "Excellent progress",
+        "color": "#27ae60",
+        "context": "The horse demonstrates a strong grasp of skills and exercises, showing consistency, responsiveness, and high engagement throughout the session. There are no major challenges, indicating readiness for new challenges or refinement."
+      },
+      "B": {
+        "syntax": "Good progress",
+        "color": "#2ecc71",
+        "context": "The horse shows reliable improvement and engages well with cues, though some exercises may still need reinforcement. Progress is evident but can be built upon with continued practice."
+      },
+      "C": {
+        "syntax": "Some progress",
+        "color": "#f1c40f",
+        "context": "The horse makes partial improvements but shows signs of difficulty with certain aspects of the exercises. The session may require specific focus on a few skills or behavioral adjustments to strengthen response."
+      },
+      "D": {
+        "syntax": "Needs improvement",
+        "color": "#e74c3c",
+        "context": "The horse faces challenges with attention, responsiveness, or behavior. Adjustments in training approach or environment may help address these issues in future sessions."
+      },
+      "F": {
+        "syntax": "No improvement",
+        "color": "#f0003c",
+        "context": "The session lacks progress, with the horse showing significant resistance or discomfort. A re-evaluation of training methods or an assessment of external factors may be necessary."
+      },
+      "*": {
+        "syntax": "No Grade",
+        "color": "#f0003c",
+        "context": "The session was ungraded, potentially due to an incomplete session, unforeseen interruption, or a non-evaluative day for rest or recovery."
+      }
+    };
+    // test url: /details.html?journal=Journal/cowboystronghorsemanship@gmail.com/Sessions&id=sbey3YBPmiaTVJt8zLMF,iW82CIJgGT4A6lNVfFy1
+    // ekmurphy78@gmail.com$id=aXDKj4nWtY59ixVZe1Vz
+    // ?path=Journal/ekmurphy78@gmail.com/Sessions&id=vf7fbXUQHonizafJ88wX,aXDKj4nWtY59ixVZe1Vz,ZfxRb0fnoK3M3g0juT4P
+    // Function to parse URL parameters
+    function getParams() {
+      const params = new URLSearchParams(window.location.search);
+
+      // Check if journal parameter exists and remove quotes if necessary
+      const path = params.get('path'); //.replace(/"/g, "");
+      // path.replace(/"/g, "");
+      // Check if id parameter exists, split it by comma if present
+      const ids = params.get("id").split(",");
+      return { path, ids };
+    }
+
+    // Function to fetch data and populate elements by ID
+    async function fetchDataAndPopulate(path, ids) {
+      journalPath = path;
+      ids.forEach((item) => {
+        getDocumentById(item);
+      });
+
+    }
+
+    // Main function to initialize the process
+    function init() {
+      const { path, ids } = getParams();
+      if (path && ids.length > 0) {
+        fetchDataAndPopulate(path, ids);
+      } else {
+        console.error(">>>>Invalid URL parameters. Please check the journal path and IDs.");
+      }
+    }
+
+    // Call the init function on page load
+    document.addEventListener("DOMContentLoaded", init);
+
+    // FireStore
+    // Fetch sessions from Firestore and render
+
+    // Fetch single session 
+    async function getDocumentById(documentId) {
+      const docRef = doc(journals, journalPath, documentId);
+
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          // Load form for updating
+
+          populateSessionForm(docSnap.id, docSnap.data());
+        } else {
+          console.log('No such document!');
+        }
+      } catch (error) {
+        console.error('Error getting document:', error);
+      }
+    }
+    // Fetch sessions from Firestore and render
+    async function fetchSessions() {
+
+      const journalRef = collection(journals, journalPath);
+      const q = query(journalRef, orderBy("Date", "desc"));
+      const querySnapshot = await getDocs(q);
+      const sessions = querySnapshot.docs.map(doc => { var rec = doc.data(); rec.id = doc.id; return rec });
+
+    }
+
+    // Populate Session Form
+    function populateSessionForm(id, session) {
+      const sessionHtml = document.createElement('div');
+      // add class class="vr"
+      const sessionList = document.getElementById('session-list');
+      console.log(session);
+      sessionHtml.innerHTML = `
+      <strong>Horse:</strong> ${session.HorseName} - <strong>Trainer:</strong> ${session.TrainerName} </br>
+      <strong>Date:</strong> ${session.Date} - ${session.TimeOfDay} </br><strong>Mood:</strong> 
+      <span style="color:${horseMood[session.HorseMood].color}; font-weight: bold;">
+          ${session.HorseMood}</span> - ${horseMood[session.HorseMood].syntax} </br>
+      <strong>Session Type:</strong> ${session.SessionType} </br> 
+      <strong>Grade:</strong> 
+      <span style="color:${sessionGrade[session.SessionGrade].color}; font-weight: bold;">
+          ${session.SessionGrade}</span> - ${sessionGrade[session.SessionGrade].syntax}
+      </br> 
+      <strong>Notes:</strong> ${session.SessionNotes || 'No additional notes.'}
+      </br>
+          <strong>Additional Notes:</strong> ${session.AdditionalNotes || 'No additional notes.'}
+      </br>
+      <hr>`;
+      // additional details
+      sessionHtml.innerHTML += `
+      <span style="color:${horseMood[session.HorseMood].color}; font-weight: bold;">
+      ${horseMood[session.HorseMood].syntax} </span> - ${horseMood[session.HorseMood].context}; </br>
+      <span style="color:${sessionGrade[session.SessionGrade].color}; font-weight: bold;">
+      ${sessionGrade[session.SessionGrade].syntax} </span> - ${sessionGrade[session.SessionGrade].context}; </br>
+      <hr>`;
+
+// Make sure parentElement is defined and a valid DOM node
+      if (sessionList) {
+        sessionList.appendChild(sessionHtml);
+      } else {
+        console.error('Parent element not found!');
+      }      console.log(sessionHtml);
+                    //sessionList.appendChild(sessionHtml);
+    };
+  </script>
+
 </body>
 
 </html>
