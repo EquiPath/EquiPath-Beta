@@ -57,51 +57,6 @@ body {
 }
 
 
-/* Print styling */
-@media print {
-
-  /* Hide all elements by default 
-  * {
-    display: none;
-  }
-*/
-  /* Only display the main content */
-  .content {
-    display: block;
-  }
-
-  /* Print-friendly styles for .content */
-  main.content {
-    color: #000;
-    background-color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 12pt;
-    width: 100%;
-    margin: 1cm auto;
-    padding: 0;
-  }
-
-  /* Remove unnecessary shadows and borders */
-  .content .box,
-  .content .card {
-    box-shadow: none;
-    border: 1px solid #000;
-  }
-
-  /* Control page breaks for headings and sections */
-  .content h2 {
-    page-break-before: always;
-  }
-
-  .content .no-break {
-    page-break-inside: avoid;
-  }
-
-  /* Show URLs after links in .content */
-  .content a[href]:after {
-    content: " (" attr(href) ")";
-  }
-}
 
 /* Print Style */
 @media print {
