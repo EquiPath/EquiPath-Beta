@@ -16,27 +16,33 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
+        <div id="loading-state" >
+        <div class="spinner-border spinner-border-sm brand-orange" style="position: fixed;" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        </div>
         <span><img src="assets/icon42-white.png"
             style="height: 28px;padding-right: ‒2;padding-right: 4px;padding-bottom: 5px;padding-top: 0px;">
           <span class="navbar-brand brand-orange h5">EquipPath Lite</span></span>
-        <button class="btn btn-sm btn-outline-success fw-bold d-flex" id="signInButton">Sign In</button>
+        <button class="btn btn-sm btn-outline-success fw-bold d-flex" id="signInButton" disabled>Sign In</button>
       </div>
     </nav>
   </header>
   <main class="flex-shrink-0" id="mainContent">
-    <span id="topMain"></span>
+    <span id="topMain">
+    </span>
     <div class="accordion p-1" id="uiMain">
       <div class="accordion-item" id="sessionList">
         <span class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapseList" aria-expanded="false" aria-controls="collapseList">
             <i class="material-icons p-1">sort</i><span class="h4 m-0">Training Sessions </span>
-
           </button>
         </span>
-        <div id="collapseList" class="accordion-collapse collapse show">
+        <div id="collapseList" class="accordion-collapse collapse">
           <div class="accordion-body p-1">
             <div id="session-list">
+              <div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions</div>
             </div>
           </div>
         </div>
@@ -49,7 +55,7 @@
 
           </button>
         </span>
-        <div id="collapseForm" class="accordion-collapse collapse show">
+        <div id="collapseForm" class="accordion-collapse collapse">
           <div class="accordion-body p-1">
             <div class="card shadow-sm mb-4">
               <div class="card-body">
@@ -283,9 +289,11 @@
     };
 
     // messages
-    const _noRecords = `<div class="alert alert-light fw-bold" role="alert">No Session Records Found</div>`;
+    const _noRecords = `<div class="alert alert-light fw-bold" role="alert">No Session Records Found</div>`;      
+    const _gettingRecords = `<div class="alert alert-light fw-bold" role="alert">Fetching Session Records</div>`;
     const _loggedOut = `<div class="alert alert-warning fw-bold" role="alert">You have been signed out of EquiPath</div>`;
     const _notLoggedIn = `<div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions</div>`;
+//    const _signingIn = `<div class="alert alert-warning fw-bold" role="alert">Auth</div>`;
 
     // UI/UX
     // Session Form / List
@@ -302,9 +310,9 @@
       sessionForm.sessionId.value = "";
       sessionListView.scrollIntoView();
     });
-    sessionListView.addEventListener("shown.bs.collapse", function () {
-      console.log('Collapse is now shown');
-    });
+    //sessionListView.addEventListener("shown.bs.collapse", function () {
+    //  console.log('Collapse is now shown');
+    //});
 
     // Scroll to top-of-page
     function topFunction() {
@@ -324,12 +332,8 @@
       }
     }
     // Sign-In / Sign-Out
-    const signInButton = document.getElementById("signInButton");
-    const signOutButton = document.getElementById("signOutButton");
-
 
     // Auth/SignIn
-
     const userSignIn = async () => {
       signInWithPopup(auth, provider)
         .then((result) => {
@@ -344,6 +348,7 @@
     }
 
     const userSignOut = async () => {
+
       signOut(auth).then(() => {
 
         // clear data
@@ -352,15 +357,15 @@
         trainer.active = false;
         //logOutMsg.show();
         sessionList.innerHTML = _loggedOut;
-
-
       }).catch((error) => { });
     }
+    const signInButton = document.getElementById("signInButton");
+    const signOutButton = document.getElementById("signOutButton");
     signInButton.addEventListener('click', userSignIn);
     signOutButton.addEventListener('click', userSignOut);
 
     onAuthStateChanged(auth, (user) => {
-
+      // Check Sign-In State
       if (user) {
         signInButton.style.visibility = "hidden";
         signOutButton.style.visibility = "visible";
@@ -373,8 +378,8 @@
         trainer.active = trainer.auth = true;
         // set Journal path
         journalPath = 'Journal/' + user.email + '/Sessions';
+        sessionList.innerHTML = _gettingRecords;
         showSessions();  // inital view 
-
       } else {
         trainer.name = "Guest";
         trainer.email = "";
@@ -382,12 +387,14 @@
         sessionList.innerHTML = _notLoggedIn;
         signInButton.style.visibility = "visible";
         signOutButton.style.visibility = "hidden";
-        collapseForm.hide();
+        signInButton.disabled =false;
+        // collapseForm.hide();
       }
-
+      document.getElementById('loading-state').style.display = 'none'
     });
     // render session list
     function showSessions(sort = "Date") {
+      document.getElementById('loading-state').style.display = 'flex'
       if (sort == 'Date') {
         fetchSessions().then((sessionList) => {
           const dataArray = groupByDate(sessionList);
@@ -402,6 +409,7 @@
       }
       sessionListView.scrollIntoView();
       collapseList.show();
+      //document.getElementById('loading-state').style.display = 'none'
     }
 
     // FireStore
@@ -526,7 +534,7 @@
           window.open(detailsURL, "_blank");
         });
       });
-
+      document.getElementById('loading-state').style.display = 'none'
     }
 
 
@@ -551,7 +559,7 @@
         SessionGrade: sessionForm.grade.value || '',
         AdditionalNotes: sessionForm.additionalNotes.value || ''
       }
-      console.log(sessionForm.sessionId.value);
+      // console.log(sessionForm.sessionId.value);
       if (sessionForm.sessionId.value === "") { // Add
         if (!trainer.auth) {
           sessionForm.reset();
@@ -603,9 +611,10 @@
       topFunction(); // scroll to top of page
 
     };
-    topFunction(); // scroll to top of page
+    //topFunction(); // scroll to top of page
     // initial View
-    collapseList.show();
+    // sessionListView.scrollIntoView();
+    //  collapseList.show();
   </script>
 </body>
 
