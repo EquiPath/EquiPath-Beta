@@ -166,7 +166,7 @@
         </div>
       </div>
     </div>
-    <div class="card m-1">
+    <div id="welcomeUser" class="card m-1">
       <h5 class="card-header brand-blue">Welcome to EquiPath!</h5>
       <div class="card-body">
         <section class="mb-4">
@@ -182,7 +182,6 @@
     </div>
     <div style="height: 40px;"></div>
   </main>
-  
   <footer class="footer fixed-bottom bg-brand-blue">
     <a type="button" class="btn btn-md brand-orange fw-bold" href="guide.html">Guide</a>
     <button type="button" class="btn btn-md brand-orange fw-bold" id="signOutButton">Sign Out</button>
@@ -293,7 +292,7 @@
     };
 
     // messages
-    const _noRecords = `<div class="alert alert-light fw-bold" role="alert">No Session Records Found</div>`;
+    const _noRecords = `<div class="alert alert-warning fw-bold" role="alert">No Session Records Found</div>`;
     const _gettingRecords = `<div class="alert alert-light fw-bold" role="alert">Fetching Session Records</div>`;
     const _loggedOut = `<div class="alert alert-warning fw-bold" role="alert">You have been signed out of EquiPath</div>`;
     const _notLoggedIn = `<div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions</div>`;
@@ -309,6 +308,8 @@
     const collapseList = bootstrap.Collapse.getOrCreateInstance(document.getElementById('collapseList'));
     const sessionListView = document.getElementById("sessionList");
     const sessionList = document.getElementById("session-list");
+    // Messages
+    const welcomeUser = document.getElementById("welcomeUser");
     // clear form on tab close
     sessionFormView.addEventListener("hide.bs.collapse", function () {
       sessionForm.reset();
@@ -351,9 +352,7 @@
     }
 
     const userSignOut = async () => {
-
       signOut(auth).then(() => {
-
         // clear data
         // const sessionList = document.getElementById('session-list');
         // sessionList.innerHTML = '';
@@ -382,12 +381,14 @@
         // set Journal path
         journalPath = 'Journal/' + user.email + '/Sessions';
         sessionList.innerHTML = _gettingRecords;
+        welcomeUser.style.visibility = "hidden";
         showSessions();  // inital view 
       } else {
         trainer.name = "Guest";
         trainer.email = "";
         trainer.active = trainer.auth = false;
         sessionList.innerHTML = _notLoggedIn;
+        welcomeUser.style.visibility = "visible";
         signInButton.style.visibility = "visible";
         signOutButton.style.visibility = "hidden";
         signInButton.disabled = false;
