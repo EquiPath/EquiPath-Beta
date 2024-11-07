@@ -11,7 +11,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-
 <body class="d-flex flex-column bg-secondary p3">
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -23,7 +22,7 @@
         </div>
         <span><img src="assets/icon42-white.png"
             style="height: 28px;padding-right: ‒2;padding-right: 4px;padding-bottom: 5px;padding-top: 0px;">
-          <span class="navbar-brand brand-orange h5">EquipPath Lite</span></span>
+          <span id="brand" class="navbar-text brand-orange h5">EquipPath Lite</span></span>
         <button class="btn btn-sm btn-outline-success fw-bold d-flex" id="signInButton" disabled>Sign In</button>
       </div>
     </nav>
@@ -296,6 +295,7 @@
 //    const _signingIn = `<div class="alert alert-warning fw-bold" role="alert">Auth</div>`;
 
     // UI/UX
+    
     // Session Form / List
     const mainContent = document.getElementById("topMain");
     const collapseForm = bootstrap.Collapse.getOrCreateInstance(document.getElementById('collapseForm'));
@@ -310,10 +310,7 @@
       sessionForm.sessionId.value = "";
       sessionListView.scrollIntoView();
     });
-    //sessionListView.addEventListener("shown.bs.collapse", function () {
-    //  console.log('Collapse is now shown');
-    //});
-
+    
     // Scroll to top-of-page
     function topFunction() {
       document.body.scrollTop = 0; // For Safari
@@ -335,6 +332,7 @@
 
     // Auth/SignIn
     const userSignIn = async () => {
+      document.getElementById('loading-state').style.display = 'flex'
       signInWithPopup(auth, provider)
         .then((result) => {
           const user = trainer.name = result.user;
@@ -394,7 +392,7 @@
     });
     // render session list
     function showSessions(sort = "Date") {
-      document.getElementById('loading-state').style.display = 'flex'
+      document.getElementById('loading-state').style.display = 'flex';
       if (sort == 'Date') {
         fetchSessions().then((sessionList) => {
           const dataArray = groupByDate(sessionList);
