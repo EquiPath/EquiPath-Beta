@@ -6,7 +6,12 @@ body {
 padding-right: 34px;
 padding-top: 18px;
 */
-
+.custom-max-width {
+  max-width: 600px;
+  /* Set your desired max width here */
+  margin: 0 auto;
+  /* Center content */
+}
 #loading-state {
   position: fixed;
   top: 0;

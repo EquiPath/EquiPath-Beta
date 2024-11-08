@@ -11,183 +11,191 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="assets/styles.css">
+  <style>
+
+
+  </style>
 </head>
 
-<body class="d-flex flex-column bg-secondary p3">
-  <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-brand-blue">
-      <div class="container-fluid">
-        <div id="loading-state">
-          <div class="spinner-border spinner-border-sm brand-orange" style="position: fixed;" role="status">
-            <span class="visually-hidden">Loading...</span>
+<body class="bg-secondary d-flex flex-column ">
+  <div class="custom-max-width">
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-brand-blue">
+        <div class="container-fluid">
+          <div id="loading-state">
+            <div class="spinner-border spinner-border-sm brand-orange" style="position: fixed;" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <span><img src="assets/icon42-white.png"
+              style="height: 28px;padding-right: ‒2;padding-right: 4px;padding-bottom: 5px;padding-top: 0px;">
+            <span id="brand" class="navbar-text brand-orange h5">EquipPath Lite</span></span>
+          <button class="btn btn-sm btn-success fw-bold d-flex" id="signInButton" disabled>Sign In</button>
+        </div>
+
+      </nav>
+    </header>
+    <main class="flex-shrink-0" id="mainContent">
+      <span id="topMain">
+      </span>
+      <div class="accordion p-1" id="uiMain">
+        <div class="accordion-item" id="sessionList">
+          <span class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseList" aria-expanded="false" aria-controls="collapseList">
+              <i class="material-icons p-1">sort</i><span class="h4 m-0">Training Sessions </span>
+            </button>
+          </span>
+          <div id="collapseList" class="accordion-collapse collapse hide">
+
+            <div class="accordion-body p-1">
+              <div id="session-list">
+                <div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <span><img src="assets/icon42-white.png"
-            style="height: 28px;padding-right: ‒2;padding-right: 4px;padding-bottom: 5px;padding-top: 0px;">
-          <span id="brand" class="navbar-text brand-orange h5">EquipPath Lite</span></span>
-        <button class="btn btn-sm btn-success fw-bold d-flex" id="signInButton" disabled>Sign In</button>
-      </div>
+        <div class="accordion-item" id="sessionForm">
+          <span class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+              <i class="material-icons p-1">assignment</i><span class="h4">Add Session</span>
 
-    </nav>
-  </header>
-  <main class="flex-shrink-0" id="mainContent">
-    <span id="topMain">
-    </span>
-    <div class="accordion accordion-flush p-1" id="uiMain">
-      <div class="accordion-item" id="sessionList">
-        <span class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseList" aria-expanded="false" aria-controls="collapseList">
-            <i class="material-icons p-1">sort</i><span class="h4 m-0">Training Sessions </span>
-          </button>
-        </span>
-        <div id="collapseList" class="accordion-collapse collapse hide">
-          <div class="accordion-body p-1">
-            <div id="session-list">
-              <div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions
+            </button>
+          </span>
+          <div id="collapseForm" class="accordion-collapse collapse">
+            <div class="accordion-body p-1">
+              <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                  <h3 class="card-title">Training Session</h3>
+                  <form id="training-form">
+                    <input type="hidden" id="sessionId" value="" />
+                    <div class="mb-3">
+                      <label for="horseName" class="form-label">Horse Name</label>
+                      <input type="text" class="form-control" name="horseName" id="horseName"
+                        placeholder="Enter horse's name" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="trainerName" class="form-label">Trainer Name</label>
+                      <input type="text" class="form-control" name="trainerName" id="trainerName"
+                        placeholder="Enter trainer's name" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="sessionDate" class="form-label">Session Date</label>
+                      <input type="date" class="form-control" name="sessionDate" id="sessionDate" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="timeOfDay" class="form-label">Time of Day</label>
+                      <select class="form-select" name="timeOfDay" id="timeOfDay" required>
+                        <option selected disabled value="">Select Time of Day</option>
+                        <option value="Early Morning">Early Morning (Before 8 a.m.)
+                        </option>
+                        <option value="Morning">Morning (8 a.m. - 11 a.m.)</option>
+                        <option value="Late Morning">Late Morning (10 a.m. - 12
+                          p.m.)</option>
+                        <option value="Noon">Noon (12 p.m.)</option>
+                        <option value="Afternoon">Afternoon (12 p.m. - 5 p.m.)
+                        </option>
+                        <option value="Late Afternoon">Late Afternoon (4 p.m. - 6
+                          p.m.)</option>
+                        <option value="Evening">Evening (5 p.m. - 8 p.m.)</option>
+                        <option value="Night">Night (After 8 p.m.)</option>
+                        <option value="Late Night">Late Night (After 10 p.m.)
+                        </option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="trainingType" class="form-label">Training
+                        Type</label>
+                      <select class="form-select" name="trainingType" id="trainingType" required>
+                        <option selected disabled value="">Choose an exercise...</option>
+                        <option value="Lunging">Lunging</option>
+                        <option value="Groundwork Exercises">Groundwork Exercises
+                        </option>
+                        <option value="Pole Work">Pole Work</option>
+                        <option value="Lateral Work">Lateral Work</option>
+                        <option value="Transitions Between Gaits">Transitions
+                          Between Gaits</option>
+                        <option value="Circles and Serpentines">Circles and
+                          Serpentines</option>
+                        <option value="Backing Up">Backing Up</option>
+                        <option value="Desensitization Exercises">Desensitization
+                          Exercises</option>
+                        <option value="Yielding to Pressure">Yielding to Pressure
+                        </option>
+                        <option value="Halter and Lead Training">Halter and Lead Training</option>
+                        <option value="Trail Work">Trail Work</option>
+                        <option value="Liberty Work">Liberty Work</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="horseMood" class="form-label">Horse Mood</label>
+                      <select class="form-select" name="horseMood" id="horseMood" required>
+                        <option selected disabled value="">Select mood...</option>
+                        <option value="Calm">Calm - Relaxed and steady</option>
+                        <option value="Focused">Focused - Attentive and engaged</option>
+                        <option value="Playful">Playful - Energetic and curious</option>
+                        <option value="Anxious">Anxious - Alert and reactive</option>
+                        <option value="Stubborn">Stubborn - Hesitant and resistant</option>
+                        <option value="Aggressive">Aggressive - Defensive and wary</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="notes" class="form-label">Notes</label>
+                      <textarea class="form-control" name="notes" id="notes" rows="3"
+                        placeholder="Enter detailed notes for training session"></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="grade" class="form-label">Grade</label>
+                      <select class="form-select" name="grade" id="grade">
+                        <option value="*" selected disabled>Select grade...</option>
+                        <option value="A">A - Excellent progress</option>
+                        <option value="B">B - Good progress</option>
+                        <option value="C">C - Some progress</option>
+                        <option value="D">D - Needs improvement</option>
+                        <option value="F">F - No improvement</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="additionalNotes" class="form-label">Additional
+                        Notes</label>
+                      <textarea class="form-control" name="additionalNotes" id="additionalNotes" rows="2"
+                        placeholder="Enter any extra observations"></textarea>
+                    </div>
+                    <button id="submit-session" type="submit" class="btn btn-sm btn-primary float-end">Submit</button>
+                    <button id="cancel-session" type="button" class="btn btn-sm btn-warning float-end">Cancel</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="accordion-item" id="sessionForm">
-        <span class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
-            <i class="material-icons p-1">assignment</i><span class="h4">Add Session</span>
-
-          </button>
-        </span>
-        <div id="collapseForm" class="accordion-collapse collapse">
-          <div class="accordion-body p-1">
-            <div class="card shadow-sm mb-4">
-              <div class="card-body">
-                <h3 class="card-title">Training Session</h3>
-                <form id="training-form">
-                  <input type="hidden" id="sessionId" value="" />
-                  <div class="mb-3">
-                    <label for="horseName" class="form-label">Horse Name</label>
-                    <input type="text" class="form-control" name="horseName" id="horseName"
-                      placeholder="Enter horse's name" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="trainerName" class="form-label">Trainer Name</label>
-                    <input type="text" class="form-control" name="trainerName" id="trainerName"
-                      placeholder="Enter trainer's name" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="sessionDate" class="form-label">Session Date</label>
-                    <input type="date" class="form-control" name="sessionDate" id="sessionDate" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="timeOfDay" class="form-label">Time of Day</label>
-                    <select class="form-select" name="timeOfDay" id="timeOfDay" required>
-                      <option selected disabled value="">Select Time of Day</option>
-                      <option value="Early Morning">Early Morning (Before 8 a.m.)
-                      </option>
-                      <option value="Morning">Morning (8 a.m. - 11 a.m.)</option>
-                      <option value="Late Morning">Late Morning (10 a.m. - 12
-                        p.m.)</option>
-                      <option value="Noon">Noon (12 p.m.)</option>
-                      <option value="Afternoon">Afternoon (12 p.m. - 5 p.m.)
-                      </option>
-                      <option value="Late Afternoon">Late Afternoon (4 p.m. - 6
-                        p.m.)</option>
-                      <option value="Evening">Evening (5 p.m. - 8 p.m.)</option>
-                      <option value="Night">Night (After 8 p.m.)</option>
-                      <option value="Late Night">Late Night (After 10 p.m.)
-                      </option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="trainingType" class="form-label">Training
-                      Type</label>
-                    <select class="form-select" name="trainingType" id="trainingType" required>
-                      <option selected disabled value="">Choose an exercise...</option>
-                      <option value="Lunging">Lunging</option>
-                      <option value="Groundwork Exercises">Groundwork Exercises
-                      </option>
-                      <option value="Pole Work">Pole Work</option>
-                      <option value="Lateral Work">Lateral Work</option>
-                      <option value="Transitions Between Gaits">Transitions
-                        Between Gaits</option>
-                      <option value="Circles and Serpentines">Circles and
-                        Serpentines</option>
-                      <option value="Backing Up">Backing Up</option>
-                      <option value="Desensitization Exercises">Desensitization
-                        Exercises</option>
-                      <option value="Yielding to Pressure">Yielding to Pressure
-                      </option>
-                      <option value="Halter and Lead Training">Halter and Lead Training</option>
-                      <option value="Trail Work">Trail Work</option>
-                      <option value="Liberty Work">Liberty Work</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="horseMood" class="form-label">Horse Mood</label>
-                    <select class="form-select" name="horseMood" id="horseMood" required>
-                      <option selected disabled value="">Select mood...</option>
-                      <option value="Calm">Calm - Relaxed and steady</option>
-                      <option value="Focused">Focused - Attentive and engaged</option>
-                      <option value="Playful">Playful - Energetic and curious</option>
-                      <option value="Anxious">Anxious - Alert and reactive</option>
-                      <option value="Stubborn">Stubborn - Hesitant and resistant</option>
-                      <option value="Aggressive">Aggressive - Defensive and wary</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="notes" class="form-label">Notes</label>
-                    <textarea class="form-control" name="notes" id="notes" rows="3"
-                      placeholder="Enter detailed notes for training session"></textarea>
-                  </div>
-                  <div class="mb-3">
-                    <label for="grade" class="form-label">Grade</label>
-                    <select class="form-select" name="grade" id="grade">
-                      <option value="*" selected disabled>Select grade...</option>
-                      <option value="A">A - Excellent progress</option>
-                      <option value="B">B - Good progress</option>
-                      <option value="C">C - Some progress</option>
-                      <option value="D">D - Needs improvement</option>
-                      <option value="F">F - No improvement</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="additionalNotes" class="form-label">Additional
-                      Notes</label>
-                    <textarea class="form-control" name="additionalNotes" id="additionalNotes" rows="2"
-                      placeholder="Enter any extra observations"></textarea>
-                  </div>
-                  <button id="submit-session" type="submit" class="btn btn-sm btn-primary float-end">Submit</button>
-                  <button id="cancel-session" type="button" class="btn btn-sm btn-warning float-end">Cancel</button>
-                </form>
-              </div>
-            </div>
-          </div>
+      <div id="welcomeUser" class="card m-1">
+        <h5 class="card-header brand-blue">Welcome to EquiPath!</h5>
+        <div class="card-body">
+          <section class="mb-4">
+            <p><strong>EquiPath</strong> is a mobile web app designed to help you track and evaluate your horse's
+              training progress,
+              with a focus on behavior modification, trust, respect, and partnership.</p>
+            <p><strong>Getting Started:</strong> To use EquiPath, please sign in with your Google account for a seamless
+              and secure experience. Just hit the <strong>'Sign In'</strong>
+              button to get started!</p>
+          </section>
         </div>
       </div>
-    </div>
-    <div id="welcomeUser" class="card m-1">
-      <h5 class="card-header brand-blue">Welcome to EquiPath!</h5>
-      <div class="card-body">
-        <section class="mb-4">
-          <p>EquiPath is a mobile web app designed to help you track and evaluate your horse's training progress,
-            with a focus on behavior modification, trust, respect, and partnership.</p>
-          <p><strong>Getting Started:</strong> To use EquiPath, please sign in with your Google account for a seamless and secure experience. Just hit the 'Sign In'
-          button to get started!</p>
-        </section>
+      <div class="container text-center">
+        <p>&copy; 2024 EquiPath by Cowboy Strong. All rights reserved.</p>
       </div>
-    </div>
-    <div class="container text-center">
-      <p>&copy; 2024 EquiPath by Cowboy Strong. All rights reserved.</p>
-    </div>
-    <div style="height: 40px;"></div>
-  </main>
-  <footer class="footer fixed-bottom bg-brand-blue">
-    <a type="button" class="btn btn-md brand-orange fw-bold" href="guide.html">Guide</a>
-    <button type="button" class="btn btn-md brand-orange fw-bold" id="signOutButton">Sign Out</button>
-    <button type="button" class="btn btn-md brand-orange float-end" id="scrollTop">^</button>
-  </footer>
-
+      <div style="height: 40px;"></div>
+    </main>
+    <footer class="footer fixed-bottom bg-brand-blue">
+      <a type="button" class="btn btn-md brand-orange fw-bold" href="guide.html">Guide</a>
+      <button type="button" class="btn btn-md brand-orange fw-bold" id="signOutButton">Sign Out</button>
+      <button type="button" class="btn btn-md brand-orange float-end" id="scrollTop">^</button>
+    </footer>
+  </div>
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js'
     // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
@@ -317,7 +325,7 @@
       sessionListView.scrollIntoView();
     });
     const tabs = document.getElementsByClassName('accordion-button');
-    function diableTabs(state = true){
+    function diableTabs(state = true) {
       Array.prototype.forEach.call(tabs, function (el) {
         el.disabled = state;
         // console.log(el.disabled);
