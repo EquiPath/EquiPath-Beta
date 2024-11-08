@@ -3,11 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EquiPath - Lite</title>
   <!-- Bootstrap CSS -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="assets/styles.css">
@@ -15,37 +13,26 @@
 
 <body class="d-flex flex-column bg-secondary p3">
   <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-brand-blue">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <div id="loading-state">
-          <div class="spinner-border spinner-border-sm brand-orange" style="position: fixed;" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
-        <span><img src="assets/icon42-white.png"
-            style="height: 28px;padding-right: ‒2;padding-right: 4px;padding-bottom: 5px;padding-top: 0px;">
-          <span id="brand" class="navbar-text brand-orange h5">EquipPath Lite</span></span>
-        <button class="btn btn-sm btn-success fw-bold d-flex" id="signInButton" disabled>Sign In</button>
+        <a class="navbar-brand brand-orange h5" href="#">EquiPath Lite</a>
+        <button class="btn btn-sm btn-outline-success fw-bold d-flex" id="signInButton">Sign In</button>
       </div>
-
     </nav>
   </header>
   <main class="flex-shrink-0" id="mainContent">
-    <span id="topMain">
-    </span>
-    <div class="accordion accordion-flush p-1" id="uiMain">
+    <span id="topMain"></span>
+    <div class="accordion p-1" id="uiMain">
       <div class="accordion-item" id="sessionList">
         <span class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapseList" aria-expanded="false" aria-controls="collapseList">
-            <i class="material-icons p-1">sort</i><span class="h4 m-0">Training Sessions </span>
+            <span class="h4">Training Sessions</span>
           </button>
         </span>
-        <div id="collapseList" class="accordion-collapse collapse hide">
-          <div class="accordion-body p-1">
+        <div id="collapseList" class="accordion-collapse collapse show">
+          <div class="accordion-body bg-gradient">
             <div id="session-list">
-              <div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions
-              </div>
             </div>
           </div>
         </div>
@@ -54,17 +41,16 @@
         <span class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
-            <i class="material-icons p-1">assignment</i><span class="h4">Add Session</span>
-
+            <span class="h4">Add Session</span>
           </button>
         </span>
-        <div id="collapseForm" class="accordion-collapse collapse">
-          <div class="accordion-body p-1">
+        <div id="collapseForm" class="accordion-collapse collapse show">
+          <div class="accordion-body">
             <div class="card shadow-sm mb-4">
               <div class="card-body">
                 <h3 class="card-title">Training Session</h3>
                 <form id="training-form">
-                  <input type="hidden" id="sessionId" value="" />
+                  <input type="hidden" name="sessionId" value="" />
                   <div class="mb-3">
                     <label for="horseName" class="form-label">Horse Name</label>
                     <input type="text" class="form-control" name="horseName" id="horseName"
@@ -166,14 +152,14 @@
         </div>
       </div>
     </div>
-    <div id="welcomeUser" class="card m-1">
+    <div class="card m-1">
       <h5 class="card-header brand-blue">Welcome to EquiPath!</h5>
       <div class="card-body">
         <section class="mb-4">
           <p>EquiPath is a mobile web app designed to help you track and evaluate your horse's training progress,
             with a focus on behavior modification, trust, respect, and partnership.</p>
-          <p><strong>Getting Started:</strong> To use EquiPath, please sign in with your Google account for a seamless and secure experience. Just hit the 'Sign In'
-          button to get started!</p>
+          <p><strong>Key Features:</strong> Quick session entry, detailed tracking lists, an informative Guide
+            section, and future updates like data trends and progress summaries.</p>
         </section>
       </div>
     </div>
@@ -292,14 +278,11 @@
     };
 
     // messages
-    const _noRecords = `<div class="alert alert-warning fw-bold" role="alert">No Session Records Found</div>`;
-    const _gettingRecords = `<div class="alert alert-light fw-bold" role="alert">Fetching Session Records</div>`;
+    const _noRecords = `<div class="alert alert-light fw-bold" role="alert">No Session Records Found</div>`;
     const _loggedOut = `<div class="alert alert-warning fw-bold" role="alert">You have been signed out of EquiPath</div>`;
     const _notLoggedIn = `<div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions</div>`;
-    //    const _signingIn = `<div class="alert alert-warning fw-bold" role="alert">Auth</div>`;
 
     // UI/UX
-
     // Session Form / List
     const mainContent = document.getElementById("topMain");
     const collapseForm = bootstrap.Collapse.getOrCreateInstance(document.getElementById('collapseForm'));
@@ -308,22 +291,13 @@
     const collapseList = bootstrap.Collapse.getOrCreateInstance(document.getElementById('collapseList'));
     const sessionListView = document.getElementById("sessionList");
     const sessionList = document.getElementById("session-list");
-    // Messages
-    const welcomeUser = document.getElementById("welcomeUser");
     // clear form on tab close
     sessionFormView.addEventListener("hide.bs.collapse", function () {
       sessionForm.reset();
       sessionForm.sessionId.value = "";
       sessionListView.scrollIntoView();
     });
-    const tabs = document.getElementsByClassName('accordion-button');
-    function diableTabs(state = true){
-      Array.prototype.forEach.call(tabs, function (el) {
-        el.disabled = state;
-        // console.log(el.disabled);
-      });
 
-    }
     // Scroll to top-of-page
     function topFunction() {
       document.body.scrollTop = 0; // For Safari
@@ -331,21 +305,15 @@
     }
     const scrollToTop = document.getElementById("scrollTop");
     scrollToTop.addEventListener('click', topFunction);
-    function scrollToElement(elementId) {
-      const element = document.getElementById(elementId);
-      console.log(elementId);
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth' // Optional for smooth scrolling
-        });
 
-      }
-    }
     // Sign-In / Sign-Out
+    const signInButton = document.getElementById("signInButton");
+    const signOutButton = document.getElementById("signOutButton");
+
 
     // Auth/SignIn
+
     const userSignIn = async () => {
-      document.getElementById('loading-state').style.display = 'flex'
       signInWithPopup(auth, provider)
         .then((result) => {
           const user = trainer.name = result.user;
@@ -360,210 +328,186 @@
 
     const userSignOut = async () => {
       signOut(auth).then(() => {
+
         // clear data
         // const sessionList = document.getElementById('session-list');
         // sessionList.innerHTML = '';
         trainer.active = false;
         //logOutMsg.show();
         sessionList.innerHTML = _loggedOut;
+
+
       }).catch((error) => { });
     }
-    const signInButton = document.getElementById("signInButton");
-    const signOutButton = document.getElementById("signOutButton");
     signInButton.addEventListener('click', userSignIn);
     signOutButton.addEventListener('click', userSignOut);
 
     onAuthStateChanged(auth, (user) => {
-      // Check Sign-In State
+
       if (user) {
         signInButton.style.visibility = "hidden";
         signOutButton.style.visibility = "visible";
         // addSessionButton.style.visibility = "visiable";
         // enable form submit
         document.getElementById('submit-session').disable = false;
-        diableTabs(false);;
         // set user 
         trainer.name = user.displayName;
         trainer.email = user.email;
         trainer.active = trainer.auth = true;
         // set Journal path
-        journalPath = 'Journal/' + user.email + '/Sessions';
-        sessionList.innerHTML = _gettingRecords;
-        welcomeUser.style.visibility = "hidden";
-        showSessions();  // inital view 
+        journalPath = 'Example/' + user.email + '/Sessions';
+        fetchSessions();
+
       } else {
         trainer.name = "Guest";
         trainer.email = "";
         trainer.active = trainer.auth = false;
         sessionList.innerHTML = _notLoggedIn;
-        welcomeUser.style.visibility = "visible";
         signInButton.style.visibility = "visible";
         signOutButton.style.visibility = "hidden";
-        diableTabs();
-        document.getElementById('submit-session').disable = false;
-
-        signInButton.disabled = false;
         collapseForm.hide();
-        collapseList.hide();
-      }
-      document.getElementById('loading-state').style.display = 'none'
-    });
-    // render session list
-    function showSessions(sort = "Date") {
-      document.getElementById('loading-state').style.display = 'flex';
-      if (sort == 'Date') {
-        fetchSessions().then((sessionList) => {
-          const dataArray = groupByDate(sessionList);
-          renderSessions(dataArray);
-        });
-      }
-      else {
-        fetchSessions("HorseName", "asc").then((sessionList) => {
-          const dataArray = groupByHorse(sessionList);
-          renderSessions(dataArray);
-        });
       }
       sessionListView.scrollIntoView();
       collapseList.show();
-      //document.getElementById('loading-state').style.display = 'none'
-    }
+    });
 
     // FireStore
     // Fetch sessions from Firestore and render
-    async function fetchSessions(column = "Date", order = "desc") {
+    async function fetchSessions() {
+
       const journalRef = collection(journals, journalPath);
-      const q = query(journalRef, orderBy(column, order));
+      const q = query(journalRef, orderBy("Date", "desc"));
       const querySnapshot = await getDocs(q);
       const sessions = querySnapshot.docs.map(doc => { var rec = doc.data(); rec.id = doc.id; return rec });
-      return sessions;
+
+      renderSessions(groupSessionsByMonth(sessions));
+
+    }
+    // Render
+    // Function to group sessions by month and horse
+    function groupSessionsByMonth(sessions) {
+
+      const groupedData = {};
+      sessions.forEach(session => {
+        const date = new Date(session.Date);
+        const monthYear = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+        if (!groupedData[monthYear]) {
+          groupedData[monthYear] = {};
+        }
+        if (!groupedData[monthYear][session.HorseName]) {
+          groupedData[monthYear][session.HorseName] = [];
+        }
+        groupedData[monthYear][session.HorseName].push(session);
+      });
+      return groupedData;
+    }
+    // Function to render the grouped sessions with collapsible notes
+    function renderSessions(groupedSessions) {
+
+      collapseList.show();
+      sessionList.innerHTML = '';
+      if (groupedSessions === undefined || groupedSessions === null) { // Display Getting Started
+        //const gettingStartedDiv = document.createElement('div');
+        //gettingStartedDiv.innerHtml = `<strong>Getting Started</strong>`;
+        // console.log(gettingStartedDiv);
+        sessionList.innerHTML = _noRecords;
+      }
+      else {
+        let collapseId = 1;
+        // Render List
+        for (const month in groupedSessions) {
+
+          const monthDiv = document.createElement('div');
+          monthDiv.classList.add('month-group');
+          monthDiv.innerHTML = `<h3>${month}</h3>`;
+
+          for (const horse in groupedSessions[month]) {
+            const horseDiv = document.createElement('div');
+            horseDiv.classList.add('horse-group');
+            horseDiv.innerHTML = `<h4>Horse: ${horse}</h4>`;
+
+            const sessionUl = document.createElement('ul');
+            //sessionUl.id = "sessionData";
+            sessionUl.classList.add('list-group');
+
+            groupedSessions[month][horse].forEach(session => {
+              const sessionLi = document.createElement('li');
+              sessionLi.classList.add('list-group-item');
+              sessionLi.innerHTML = `
+                <strong>Date:</strong> ${session.Date} - ${session.TimeOfDay} </br> 
+                    <strong>Mood:</strong> 
+                    <span style="color:${horseMood[session.HorseMood].color}; font-weight: bold;">
+                        ${session.HorseMood}</span> - ${horseMood[session.HorseMood].syntax} </br>
+                    <strong>Session Type:</strong> ${session.SessionType} </br> 
+                    <strong>Grade:</strong> 
+                    <span style="color:${sessionGrade[session.SessionGrade].color}; font-weight: bold;">
+                        ${session.SessionGrade}</span> - ${sessionGrade[session.SessionGrade].syntax}
+                    </br> 
+                    <strong>Trainer:</strong> ${session.TrainerName} 
+                    </br>
+                    <div class="collapse" id="notes${collapseId}">
+                        <strong>Notes:</strong> ${session.SessionNotes}<br>
+                        <strong>Additional Notes:</strong> ${session.AdditionalNotes || 'No additional notes.'}
+                    </div>
+                    <button class="btn btn-sm custom-btn detail" name="${session.id}" data-bs-toggle="collapse" href="#notes${collapseId}" role="button" aria-expanded="false" aria-controls="notes${collapseId}">
+                        Details
+                    </button>
+                    </br>
+                    <button class="btn btn-sm btn-primary edit float-end"  id="${session.id}" role="button" aria-expanded="false" aria-controls="notes${collapseId}">
+                    Edit</button>`;
+              sessionUl.appendChild(sessionLi);
+              collapseId++;
+            });
+            horseDiv.appendChild(sessionUl);
+            monthDiv.appendChild(horseDiv);
+          }
+          sessionList.appendChild(monthDiv);
+
+          // Assign events to edit buttons
+          const buttonEvents = document.querySelectorAll('.edit');
+          buttonEvents.forEach(element => {
+            element.addEventListener('click', (e) => {
+              // console.log(element);
+              // Handle the click event here
+              getDocumentById(element.id);
+            });
+          });
+        }
+      }
+      sessionListView.scrollIntoView();
     }
 
     // Fetch single session 
     async function getDocumentById(documentId) {
+      collapseForm.show();
       const docRef = doc(journals, journalPath, documentId);
+
       try {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           // Load form for updating
+
           populateSessionForm(docSnap.id, docSnap.data());
-          // 
         } else {
           console.log('No such document!');
         }
       } catch (error) {
         console.error('Error getting document:', error);
       }
-
     }
 
-    function groupByDate(sessionQuery) {
-
-      const groupedData = {};
-      sessionQuery.forEach((session) => {
-        // 
-        const date = new Date(session.Date);
-        const monthYear = date.toLocaleString('default', { month: 'short', year: 'numeric' });
-        //
-        if (!groupedData[monthYear]) {
-          groupedData[monthYear] = [];
-        }
-        groupedData[monthYear].push(session);
-      });
-      return groupedData;
-    }
-
-    function groupByHorse(sessionQuery) {
-      const groupedData = {};
-      sessionQuery.forEach((session) => {
-        // 
-        const horse = session.HorseName;
-        //
-        if (!groupedData[horse]) {
-          groupedData[horse] = [];
-        }
-        groupedData[horse].push(session);
-      });
-      return groupedData;
-    }
-
-    // Populate UI - Session List
-    function renderSessions(data) {
-      let i = 0;
-      document.getElementById('session-list').innerHTML = ""; // Clear
-      let html = `
-          <div class="container session-group" >
-            <ul class="list-unstyled">`;
-
-      Object.keys(data).forEach((key, index) => {
-        const sessionList = data[key];
-
-        sessionList.forEach((session) => {
-          // console.log(i, 'br'); } i++;
-          html += `
-          <li class="mb-3 p-1">
-            ${i++ !== 0 ? '<hr>' : ''}
-            <div class="d-flex justify-content-between align-items-center">
-              <h4 class="mb-1">${session.HorseName}</h4>
-              <div id="${session.id}">
-                <button class="icon-btn" id="edit-session" aria-label="Edit">
-                    <i class="material-icons md-18 mr-1">edit</i>
-                </button>
-                <button class="icon-btn" id="share-session" aria-label="Share">
-                    <i class="material-icons md-18 mr-1">share</i>
-                </button>
-              </div>
-           </div>
-        <h6 class="card-subtitle">${session.SessionType}</h6>
-        <hr>
-        <strong>Date:</strong> ${session.Date} - ${session.TimeOfDay} <br>
-        <strong>Mood:</strong>
-        <span style="color:${horseMood[session.HorseMood].color}; font-weight: bold;">
-                        ${session.HorseMood}</span> - ${horseMood[session.HorseMood].syntax} </br>
-                        <strong>Notes:</strong> ${session.SessionNotes || 'No additional notes.'}<br>
-        <strong>Grade:</strong>
-                    <span style="color:${sessionGrade[session.SessionGrade].color}; font-weight: bold;">
-                        ${session.SessionGrade}</span> - ${sessionGrade[session.SessionGrade].syntax}
-                    </br> 
-        <strong>Additional Notes:</strong> ${session.AdditionalNotes || 'No additional notes.'} </br>
-        <strong>Trainer:</strong> ${session.TrainerName} 
-        <!-- Details -->            
-      </li>`;
-        });
-      });
-      html += `</ul></div >`; // Close the main accordion
-      document.getElementById('session-list').innerHTML = html;
-      // Assign events to edit buttons
-      const editEvents = document.querySelectorAll('#edit-session');
-      editEvents.forEach(element => {
-        element.addEventListener('click', (e) => {
-          getDocumentById(element.parentNode.id);
-          // collapseForm.show();
-        });
-      });
-      // Assign events to share buttons
-      const shareEvents = document.querySelectorAll('#share-session');
-      shareEvents.forEach(element => {
-        element.addEventListener('click', (e) => {
-          // Handle the click event here
-          // const sessionId = getDocumentById(element.parentNode.id);
-          const detailsURL = "details.html?path=" + journalPath + "&id=" + element.parentNode.id;
-          window.open(detailsURL, "_blank");
-        });
-      });
-      document.getElementById('loading-state').style.display = 'none'
-    }
-
-
-    // Cancel Edit Session
+    // Cancel Session
     document.getElementById('cancel-session').addEventListener('click', async function (e) {
       e.preventDefault();
       collapseForm.hide();
-      sessionForm.reset();
+      //sessionForm.reset();
     });
 
     // Add/Update Session
     document.getElementById('training-form').addEventListener('submit', async function (e) {
       e.preventDefault();
+
       let sessionData = {
         HorseName: sessionForm.horseName.value,
         TrainerName: sessionForm.trainerName.value,
@@ -575,8 +519,8 @@
         SessionGrade: sessionForm.grade.value || '',
         AdditionalNotes: sessionForm.additionalNotes.value || ''
       }
-      // console.log(sessionForm.sessionId.value);
-      if (sessionForm.sessionId.value === "") { // Add
+
+      if (sessionForm.sessionId.value === "") {
         if (!trainer.auth) {
           sessionForm.reset();
           collapseForm.hide();
@@ -591,6 +535,7 @@
         } catch (error) {
           console.error("Error adding document:", error);
         }
+
       }
       else {
         // Update Session
@@ -603,15 +548,15 @@
       }
 
       // clear form and re-render
-      collapseForm.hide();
-      showSessions();
-      scrollToElement(sessionForm.sessionId.value);
       sessionForm.reset();
+      sessionForm.sessionId.value = "";
+      collapseForm.hide();
+      fetchSessions();
     });
 
     // Populate Session Form
     function populateSessionForm(id, session) {
-      collapseForm.show();
+
       sessionForm.reset();
       sessionForm.sessionId.value = id;
       sessionForm.horseName.value = session.HorseName;
@@ -623,14 +568,12 @@
       sessionForm.notes.value = session.SessionNotes;
       sessionForm.grade.value = session.SessionGrade;
       sessionForm.additionalNotes.value = session.AdditionalNotes;
-      collapseList.hide();
-      topFunction(); // scroll to top of page
+
+      sessionFormView.scrollIntoView();
 
     };
-    //topFunction(); // scroll to top of page
-    // initial View
-    // sessionListView.scrollIntoView();
-    //  collapseList.show();
+
+    collapseList.show();
   </script>
 </body>
 
