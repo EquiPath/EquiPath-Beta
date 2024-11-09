@@ -194,7 +194,9 @@
     <footer class="footer fixed-bottom bg-brand-blue">
       <a type="button" class="btn btn-md brand-orange fw-bold" href="guide.html">Guide</a>
       <button type="button" class="btn btn-md brand-orange fw-bold" id="signOutButton">Sign Out</button>
-      <button type="button" class="btn btn-md brand-orange float-end" id="scrollTop">^</button>
+      <button type="button" class="btn btn-md brand-orange float-end" id="scrollTop">
+        <i class="material-icons p-0">vertical_align_top</i>
+      </button>
     </footer>
   </div>
   <script type="module">
@@ -233,6 +235,9 @@
       active: false,
       date: null
     };
+    provider.setCustomParameters({
+        prompt: 'select_account'
+      });
     // Lookup Tables
     const horseMood = {
       "Calm": {
