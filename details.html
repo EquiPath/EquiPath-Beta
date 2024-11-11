@@ -269,10 +269,10 @@
       <hr>`;
       // additional details
       sessionHtml.innerHTML += `
-      <span style="color:${horseMood[session.HorseMood].color}; font-weight: bold;">
-      ${horseMood[session.HorseMood].syntax} </span> - ${horseMood[session.HorseMood].context}; </br>
-      <span style="color:${sessionGrade[session.SessionGrade].color}; font-weight: bold;">
-      ${sessionGrade[session.SessionGrade].syntax} </span> - ${sessionGrade[session.SessionGrade].context}; </br>
+      <p><span style="color:${horseMood[session.HorseMood].color}; font-weight: bold;">
+      ${horseMood[session.HorseMood].syntax} </span> - ${horseMood[session.HorseMood].context} </p>
+      <p><span style="color:${sessionGrade[session.SessionGrade].color}; font-weight: bold;">
+      ${sessionGrade[session.SessionGrade].syntax} </span> - ${sessionGrade[session.SessionGrade].context}; </p>
       <hr>`;
 
 // Make sure parentElement is defined and a valid DOM node
