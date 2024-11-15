@@ -154,7 +154,7 @@
         <h3 class="h5 text-primary-blue">Explore the Guides</h3>
         <p>Get detailed insights and guidelines to make the most of EquiPath.</p>
         <ul class="list-inline">
-          <li class="list-inline-item"><a href="/guide.html" class="text-accent-orange">Getting
+          <li class="list-inline-item"><a href="/guide.html#gettingStarted" class="text-accent-orange">Getting
               Started</a>
           </li>
           <li class="list-inline-item"><a href="/guide.html#horseExercises" class="text-accent-orange">Training
@@ -170,7 +170,6 @@
           </li>
         </ul>
       </div>
-
     </div>
   </section>
 
@@ -192,18 +191,14 @@
   </footer>
 
   <script type="module">
+    // Check if open in FB browser
     function isFacebookInAppBrowser() {
       const userAgent = navigator.userAgent;
       return userAgent.includes("FBAN") || userAgent.includes("FBAV");
     }
-
-    if (isFacebookInAppBrowser()) {
-      // Perform actions specific to Facebook in-app browser
-      console.log("Page is open in Facebook app");
-    }
-
+    // Check if open in facebook... 
     document.addEventListener('DOMContentLoaded', function () {
-      // Your code here
+      // If FB browser show dialog
       if (isFacebookInAppBrowser()) {      
       var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
         keyboard: false

@@ -18,7 +18,7 @@
   </style>
 </head>
 
-<body class="bg-secondary d-flex flex-column ">
+<body class="d-flex flex-column ">
   <div class="custom-max-width">
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-brand-blue">
@@ -47,8 +47,7 @@
               <i class="material-icons p-1">sort</i><span class="h4 m-0">Training Sessions </span>
             </button>
           </span>
-          <div id="collapseList" class="accordion-collapse collapse hide">
-
+          <div id="collapseList" class="accordion-collapse collapse">
             <div class="accordion-body p-1">
               <div id="session-list">
                 <div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions
@@ -205,7 +204,7 @@
     import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js'
     // Add Firebase products that you want to use
     import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js'
-    import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, query, orderBy, Timestamp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js'
+    import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, query, orderBy, limit, Timestamp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js'
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
@@ -395,7 +394,7 @@
         // addSessionButton.style.visibility = "visiable";
         // enable form submit
         document.getElementById('submit-session').disable = false;
-        diableTabs(false);;
+        diableTabs(false);
         // set user 
         trainer.name = user.displayName;
         trainer.email = user.email;
@@ -422,6 +421,7 @@
       }
       document.getElementById('loading-state').style.display = 'none'
     });
+
     // render session list
     function showSessions(sort = "Date") {
       document.getElementById('loading-state').style.display = 'flex';
@@ -444,9 +444,9 @@
 
     // FireStore
     // Fetch sessions from Firestore and render
-    async function fetchSessions(column = "Date", order = "desc") {
+    async function fetchSessions(column = "Date", order = "desc", size = 30, offset = null) {
       const journalRef = collection(journals, journalPath);
-      const q = query(journalRef, orderBy(column, order));
+      const q = query(journalRef, orderBy(column, order), limit(size));
       const querySnapshot = await getDocs(q);
       const sessions = querySnapshot.docs.map(doc => { var rec = doc.data(); rec.id = doc.id; return rec });
       return sessions;

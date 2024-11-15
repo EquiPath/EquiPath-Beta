@@ -25,7 +25,8 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 
-<body class="d-flex flex-column bg-secondary p3">
+<body class="d-flex flex-column">
+  
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-brand-blue">
     <div class="container-fluid">
       <span><img src="assets/icon42-white.png"
@@ -34,20 +35,19 @@
       <a class="btn btn-sm btn-success d-flex" onclick="history.back();" id="return"><i
           class="material-icons p-0">keyboard_backspace</i></a>
     </div>
-    </div>
   </nav>
-
-  <main class="flex-shrink-0 custom-max-width" id="mainContent">
+  <div class="custom-max-width">
+  <main class="flex-shrink-0" id="mainContent">
     <div class="accordion p-1" id="uiMain">
       <!-- Getting Started -->
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#gettingStarted"
-            aria-expanded="true" aria-controls="gettingStarted">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gettingStarted"
+            aria-expanded="false" aria-controls="gettingStarted">
             <span class="h4">Getting Started</span>
           </button>
         </h2>
-        <div id="gettingStarted" class="accordion-collapse collapse show" data-bs-parent="#uiMain">
+        <div id="gettingStarted" class="accordion-collapse collapse" data-bs-parent="#uiMain">
           <div class="accordion-body">
             <div class="card-body">
               <!-- Welcome Section -->
@@ -535,15 +535,18 @@
       <p>&copy; 2024 EquiPath by Cowboy Strong. All rights reserved.</p>
     </div>
   </main>
+  </div>
   <div style="height: 40px;"></div>
   <footer class="footer fixed-bottom bg-brand-blue">
     <button type="button" class="btn btn-md brand-orange float-end" id="scrollTop">
       <i class="material-icons p-1">vertical_align_top</i>
     </button>
   </footer>
+  
+
   <script type="module">
     // Offset for scrolling (adjust as necessary)
-    const offset = 120;
+    const offset = 140;
     // Function to scroll to an accordion item with an offset
     function scrollToAccordionItem(targetCollapse) {
       setTimeout(() => {
@@ -567,6 +570,7 @@
 
     // Check if there is a hash in the URL on page load
     document.addEventListener("DOMContentLoaded", () => {
+      // closeAllAccordions();
       if (window.location.hash) {
         //topFunction();
         const targetCollapse = document.querySelector(window.location.hash);
