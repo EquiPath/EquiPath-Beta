@@ -44,7 +44,7 @@
         aria-atomic="true" data-bs-autohide="true" data-bs-delay="10000" style="z-index: 100;">
         <div class="toast-header bg-brand-blue">
           <strong class="me-auto">Alert!</strong>
-          <button type="button" class="btn-close bg-secondary" data-bs-dismiss="toast" aria-label="Close"></button>
+          <button type="button" class="btn-close bg-light" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div id="alertMsg" class="toast-body">
           Loading. . .
@@ -198,6 +198,7 @@
       </div>
       <div class="container text-center">
         <span id="userInfo"></span>
+        <hr>
         <p>&copy; 2024 EquiPath by Cowboy Strong. All rights reserved.</p>
       </div>
       <div style="height: 40px;"></div>
@@ -473,12 +474,17 @@
     }
 
     // FireStore
+    let lastDoc = null;
     // Fetch sessions from Firestore and render
-    async function fetchSessions(column = "Date", order = "desc", size = 30, offset = null) {
+    async function fetchSessions(column = "Date", order = "desc", size = 100, offset = null) {
       const journalRef = collection(journals, journalPath);
       const q = query(journalRef, orderBy(column, order), limit(size));
       const querySnapshot = await getDocs(q);
+      
+      lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+      // console.log(lastDoc);
       const sessions = querySnapshot.docs.map(doc => { var rec = doc.data(); rec.id = doc.id; return rec });
+      
       return sessions;
     }
 
@@ -538,12 +544,15 @@
 
     // Populate UI - Session List
     function renderSessions(data) {
-      let i = 0;
       document.getElementById('session-list').innerHTML = ""; // Clear
+      if(Object.keys(data).length === 0){
+        sessionList.innerHTML = _noRecords;
+          return;
+      }
+      let i = 0;
       let html = `
           <div class="container session-group" >
             <ul class="list-unstyled">`;
-
       Object.keys(data).forEach((key, index) => {
         const sessionList = data[key];
 
@@ -600,7 +609,8 @@
           window.open(detailsURL, "_blank");
         });
       });
-      document.getElementById('loading-state').style.display = 'none'
+
+      //document.getElementById('loading-state').style.display = 'none'
     }
 
     // Cancel Edit Session
