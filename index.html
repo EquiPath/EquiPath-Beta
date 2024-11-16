@@ -14,7 +14,10 @@
   <link rel="stylesheet" href="assets/styles.css">
   <style>
 
-
+.alert {
+    width: 100%;
+    text-align: center;
+}
   </style>
 </head>
 
@@ -37,8 +40,16 @@
       </nav>
     </header>
     <main class="flex-shrink-0" id="mainContent">
-      <span id="topMain">
-      </span>
+      <div id="alertTop" class="toast position-fixed top-1 start-50 translate-middle-x" role="alert" aria-live="assertive"
+        aria-atomic="true" data-bs-autohide="true" data-bs-delay="10000" style="z-index: 100;">
+        <div class="toast-header">
+          <strong class="me-auto">Alert!</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div id="alertMsg" class="toast-body">
+          Loading. . .
+        </div>
+      </div>
       <div class="accordion p-1" id="uiMain">
         <div class="accordion-item" id="sessionList">
           <span class="accordion-header">
@@ -50,8 +61,6 @@
           <div id="collapseList" class="accordion-collapse collapse">
             <div class="accordion-body p-1">
               <div id="session-list">
-                <div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions
-                </div>
               </div>
             </div>
           </div>
@@ -61,7 +70,6 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
               <i class="material-icons p-1">assignment</i><span class="h4">Add Session</span>
-
             </button>
           </span>
           <div id="collapseForm" class="accordion-collapse collapse">
@@ -69,7 +77,9 @@
               <div class="card shadow-sm mb-4">
                 <div class="card-body">
                   <h3 class="card-title">Training Session</h3>
+                  <div id="session-form"></div>
                   <form id="training-form">
+                    <fieldset disabled>
                     <input type="hidden" id="sessionId" value="" />
                     <div class="mb-3">
                       <label for="horseName" class="form-label">Horse Name</label>
@@ -165,6 +175,7 @@
                     </div>
                     <button id="submit-session" type="submit" class="btn btn-sm btn-primary float-end">Submit</button>
                     <button id="cancel-session" type="button" class="btn btn-sm btn-warning float-end">Cancel</button>
+                    </fieldset>
                   </form>
                 </div>
               </div>
@@ -186,6 +197,7 @@
         </div>
       </div>
       <div class="container text-center">
+        <span id="userInfo"></span>
         <p>&copy; 2024 EquiPath by Cowboy Strong. All rights reserved.</p>
       </div>
       <div style="height: 40px;"></div>
@@ -305,14 +317,22 @@
     };
 
     // messages
-    const _noRecords = `<div class="alert alert-warning fw-bold" role="alert">No Session Records Found</div>`;
     const _gettingRecords = `<div class="alert alert-light fw-bold" role="alert">Fetching Session Records</div>`;
-    const _loggedOut = `<div class="alert alert-warning fw-bold" role="alert">You have been signed out of EquiPath</div>`;
-    const _notLoggedIn = `<div class="alert alert-warning fw-bold" role="alert">You must be Signed In to add new Training Sessions</div>`;
-    //    const _signingIn = `<div class="alert alert-warning fw-bold" role="alert">Auth</div>`;
+    const _noRecords = `<div class="alert fw-bold" role="alert">No Session Records Found</div>`;
+    const _loggedOut = `<div class="alert fw-bold" role="alert">You have been signed out of EquiPath</div>`;
+    const _notLoggedIn = `<div class="alert fw-bold" role="alert">You must be Signed In to add new Training Sessions</div>`;
+    
+    const topToast = bootstrap.Toast.getOrCreateInstance('#alertTop'); // Returns a Bootstrap toast instance
+     
+    function displayAlert(_msg = "Loading..."){
+      var alert = document.getElementById('alertMsg');
+      alert.innerHTML = _msg;
+      topToast.show();
+    }
 
     // UI/UX
-
+    const fieldSet = document.querySelector('#training-form fieldset');
+    //console.log(document.querySelector('#training-form fieldset'));
     // Session Form / List
     const mainContent = document.getElementById("topMain");
     const collapseForm = bootstrap.Collapse.getOrCreateInstance(document.getElementById('collapseForm'));
@@ -323,6 +343,8 @@
     const sessionList = document.getElementById("session-list");
     // Messages
     const welcomeUser = document.getElementById("welcomeUser");
+    const formAlert = document.getElementById('session-form');
+    const userInfo = document.getElementById('userInfo');
     // clear form on tab close
     sessionFormView.addEventListener("hide.bs.collapse", function () {
       sessionForm.reset();
@@ -364,7 +386,7 @@
           const user = trainer.name = result.user;
           trainer.email = result.email;
           trainer.active = true;
-          // console.log(user);
+          fieldSet.disabled = false;
         }).catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message
@@ -374,12 +396,15 @@
     const userSignOut = async () => {
       signOut(auth).then(() => {
         // clear data
-        // const sessionList = document.getElementById('session-list');
-        // sessionList.innerHTML = '';
         trainer.active = false;
-        //logOutMsg.show();
-        sessionList.innerHTML = _loggedOut;
-      }).catch((error) => { });
+        displayAlert(_loggedOut);
+        fieldSet.disabled = true;
+        sessionList.innerHTML = _noRecords;
+        formAlert.innerHTML = _notLoggedIn;
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message
+      });
     }
     const signInButton = document.getElementById("signInButton");
     const signOutButton = document.getElementById("signOutButton");
@@ -393,8 +418,8 @@
         signOutButton.style.visibility = "visible";
         // addSessionButton.style.visibility = "visiable";
         // enable form submit
-        document.getElementById('submit-session').disable = false;
-        diableTabs(false);
+        //document.getElementById('submit-session').disable = false;
+        // diableTabs(false);
         // set user 
         trainer.name = user.displayName;
         trainer.email = user.email;
@@ -402,18 +427,23 @@
         // set Journal path
         journalPath = 'Journal/' + user.email + '/Sessions';
         sessionList.innerHTML = _gettingRecords;
-        welcomeUser.style.visibility = "hidden";
+        formAlert.innerHTML = "";
+        welcomeUser.style.display = "none";
+        fieldSet.disabled = false;
+        userInfo.innerText = "Welcome " + trainer.name;
         showSessions();  // inital view 
       } else {
         trainer.name = "Guest";
         trainer.email = "";
         trainer.active = trainer.auth = false;
-        sessionList.innerHTML = _notLoggedIn;
-        welcomeUser.style.visibility = "visible";
+        journalPath = "";
+        userInfo.innerText = "";
+        welcomeUser.style.display = "block";
         signInButton.style.visibility = "visible";
         signOutButton.style.visibility = "hidden";
-        diableTabs();
-        document.getElementById('submit-session').disable = false;
+        //diableTabs();
+        displayAlert(_notLoggedIn);
+        // document.getElementById('submit-session').disable = false;
 
         signInButton.disabled = false;
         collapseForm.hide();
@@ -454,18 +484,24 @@
 
     // Fetch single session 
     async function getDocumentById(documentId) {
-      const docRef = doc(journals, journalPath, documentId);
+      
       try {
+        const docRef = doc(journals, journalPath, documentId);  
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           // Load form for updating
           populateSessionForm(docSnap.id, docSnap.data());
           // 
         } else {
-          console.log('No such document!');
+          displayAlert('No such document!');
         }
       } catch (error) {
+        // 
+        displayAlert('Error getting document');
         console.error('Error getting document:', error);
+      }
+      finally{
+        
       }
 
     }
@@ -567,14 +603,12 @@
       document.getElementById('loading-state').style.display = 'none'
     }
 
-
     // Cancel Edit Session
     document.getElementById('cancel-session').addEventListener('click', async function (e) {
       e.preventDefault();
       collapseForm.hide();
       sessionForm.reset();
     });
-
     // Add/Update Session
     document.getElementById('training-form').addEventListener('submit', async function (e) {
       e.preventDefault();
@@ -595,7 +629,7 @@
           sessionForm.reset();
           collapseForm.hide();
           sessionListView.scrollIntoView();
-          sessionList.innerHTML = _notLoggedIn;
+          displayAlert(_notLoggedIn);
           collapseList.show();
           return;
         }
@@ -645,6 +679,8 @@
     // initial View
     // sessionListView.scrollIntoView();
     //  collapseList.show();
+    sessionList.innerHTML = _noRecords;
+    formAlert.innerHTML=_notLoggedIn;
   </script>
 </body>
 
