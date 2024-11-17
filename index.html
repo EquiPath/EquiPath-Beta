@@ -238,7 +238,8 @@
     const provider = new GoogleAuthProvider()
 
     // data
-    var journalPath = "Journal"; // points to session documants
+    var sessionsPath = "Journal/email@domain.com/Sessions"; // points to session documants
+    var horsesPath = "Journal/email@domain.com/Horses"; // points to horse documants
     var trainerPath = "Journal/email@domain.com"; // Trainer Document
     const trainer = {
       name: "",
@@ -433,7 +434,7 @@
         trainer.email = user.email;
         trainer.active = trainer.auth = true;
         // set Journal path
-        journalPath = 'Journal/' + user.email + '/Sessions';
+        sessionsPath = 'Journal/' + user.email + '/Sessions';
         sessionList.innerHTML = _gettingRecords;
         formAlert.innerHTML = "";
         welcomeUser.style.display = "none";
@@ -444,7 +445,7 @@
         trainer.name = "Guest";
         trainer.email = "";
         trainer.active = trainer.auth = false;
-        journalPath = "";
+        sessionsPath = "";
         userInfo.innerText = "";
         welcomeUser.style.display = "block";
         signInButton.style.visibility = "visible";
@@ -487,7 +488,7 @@
     // Fetch sessions from Firestore and render
     async function fetchSessions() {
       let q;
-      const journalRef = collection(journals, journalPath);
+      const journalRef = collection(journals, sessionsPath);
       if(sortSessions === "Date"){
         q = query(journalRef, orderBy('Date', 'desc'));
       }
@@ -495,7 +496,7 @@
         q = query(journalRef, orderBy('HorseName', 'asc'), orderBy('Date', 'desc'));
       }
       else{
-        q = query(journalRef);
+        q = query(journalRef); // un-sorted
       }
       const querySnapshot = await getDocs(q);
       // 
@@ -509,7 +510,7 @@
     async function getDocumentById(documentId) {
       
       try {
-        const docRef = doc(journals, journalPath, documentId);  
+        const docRef = doc(journals, sessionsPath, documentId);  
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           // Load form for updating
@@ -529,11 +530,16 @@
 
     }
 
-    function groupByDate(sessionQuery) {
+    let horseList = null;
+    function listHorses(column){
 
+    }
+    function groupByDate(sessionQuery) {
+      horseList = [{}];  // empty list
       const groupedData = {};
       sessionQuery.forEach((session) => {
         // 
+
         const date = new Date(session.Date);
         const monthYear = date.toLocaleString('default', { month: 'short', year: 'numeric' });
         //
@@ -541,11 +547,20 @@
           groupedData[monthYear] = [];
         }
         groupedData[monthYear].push(session);
+        // unique horse names
+        if(session.HorseName !== ''){
+          if(!horseList[session.HorseName]){
+            horseList[session.HorseName] = {Name: session.HorseName, Count: 0, LastSession: session.Date};
+          }
+          horseList[session.HorseName].Count++;
+        }
       });
+      
       return groupedData;
     }
 
     function groupByHorse(sessionQuery) {
+      horseList = [{}];  // empty list
       const groupedData = {};
       sessionQuery.forEach((session) => {
         // 
@@ -555,6 +570,13 @@
           groupedData[horse] = [];
         }
         groupedData[horse].push(session);
+
+        if (session.HorseName !== '') {
+          if (!horseList[session.HorseName]) {
+            horseList[session.HorseName] = { Name: session.HorseName, Count: 0, LastSession: session.Date };
+          }
+          horseList[session.HorseName].Count++;
+        }
       });
       return groupedData;
     }
@@ -632,23 +654,23 @@
         element.addEventListener('click', (e) => {
           // Handle the click event here
           // const sessionId = getDocumentById(element.parentNode.id);
-          const detailsURL = "details.html?path=" + journalPath + "&id=" + element.parentNode.id;
+          const detailsURL = "details.html?path=" + sessionsPath + "&id=" + element.parentNode.id;
           window.open(detailsURL, "_blank");
         });
-        // Assign Sort By Radios
-        const sortByBtn = document.querySelectorAll('input[name="sortBy"]');
-        sortByBtn.forEach(button => {
-          button.addEventListener('change', () => {
-            if (button.checked) {
-              sortSessions = button.value; // Access the value of the selected radio button
-              // console.log("Selected value:", sortSessions);
-              // Do something with the selected value, like update a form field
-              showSessions(sortSessions);
-
-            }
-          });
-        });    
       });
+      // Assign Sort By Radios
+      const sortByBtn = document.querySelectorAll('input[name="sortBy"]');
+      sortByBtn.forEach(button => {
+        button.addEventListener('change', () => {
+          if (button.checked) {
+            sortSessions = button.value; // Access the value of the selected radio button
+            // console.log("Selected value:", sortSessions);
+            // Do something with the selected value, like update a form field
+            showSessions(sortSessions);
+            
+          }
+        });
+      });    
 
       document.getElementById('loading-state').style.display = 'none'
     }
@@ -656,7 +678,7 @@
     // create a timeStamp for faster queries
     function dateStringToTimestamp(dateString) {
       const date = new Date(dateString+'T12:00:00.000z');
-      console.log(date);
+      // console.log(date);
       const timestamp = Timestamp.fromDate(date);
       return timestamp;
     }
@@ -693,7 +715,7 @@
         }
         // Add Session
         try {
-          const newDocRef = await addDoc(collection(journals, journalPath), sessionData);
+          const newDocRef = await addDoc(collection(journals, sessionsPath), sessionData);
         } catch (error) {
           console.error("Error adding document:", error);
         }
@@ -701,7 +723,7 @@
       else {
         // Update Session
         try {
-          const docRef = doc(journals, journalPath, sessionForm.sessionId.value);
+          const docRef = doc(journals, sessionsPath, sessionForm.sessionId.value);
           await setDoc(docRef, sessionData);
         } catch (error) {
           console.error("Error updating document:", error);
