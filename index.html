@@ -41,7 +41,7 @@
     </header>
     <main class="flex-shrink-0" id="mainContent">
       <div id="alertTop" class="toast position-fixed top-1 start-50 translate-middle-x" role="alert" aria-live="assertive"
-        aria-atomic="true" data-bs-autohide="true" data-bs-delay="10000" style="z-index: 100;">
+        aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000" style="z-index: 100;">
         <div class="toast-header bg-brand-blue">
           <strong class="me-auto">Alert!</strong>
           <button type="button" class="btn-close bg-light" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -194,6 +194,16 @@
               and secure experience. Just hit the <strong>'Sign In'</strong>
               button to get started!</p>
           </section>
+        </div>
+      </div>
+      <div id="stats" class="card m-1 d-none">
+        <h5 class="card-header brand-blue">Quick Stats</h5>
+        <div class="card-body">
+          <section class="mb-4">
+            <ul id="session-stats" class="list-unstyled">
+              <li>No Records</li>
+            </ul>
+          </section> 
         </div>
       </div>
       <div class="container text-center">
@@ -350,6 +360,7 @@
     const collapseList = bootstrap.Collapse.getOrCreateInstance(document.getElementById('collapseList'));
     const sessionListView = document.getElementById("sessionList");
     const sessionList = document.getElementById("session-list");
+    const sessionStats = document.getElementById("session-stats");
     // Messages
     const welcomeUser = document.getElementById("welcomeUser");
     const formAlert = document.getElementById('session-form');
@@ -410,6 +421,7 @@
         fieldSet.disabled = true;
         sessionList.innerHTML = _noRecords;
         formAlert.innerHTML = _notLoggedIn;
+        document.getElementById('stats').classList.add('d-none');
       }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message
@@ -439,7 +451,7 @@
         formAlert.innerHTML = "";
         welcomeUser.style.display = "none";
         fieldSet.disabled = false;
-        userInfo.innerText = "Welcome " + trainer.name;
+        userInfo.innerText = "Signed In: " + trainer.name;
         showSessions(sortSessions);  // inital view 
       } else {
         trainer.name = "Guest";
@@ -535,7 +547,7 @@
 
     }
     function groupByDate(sessionQuery) {
-      horseList = [{}];  // empty list
+      horseList = {};  // empty list
       const groupedData = {};
       sessionQuery.forEach((session) => {
         // 
@@ -550,7 +562,7 @@
         // unique horse names
         if(session.HorseName !== ''){
           if(!horseList[session.HorseName]){
-            horseList[session.HorseName] = {Name: session.HorseName, Count: 0, LastSession: session.Date};
+            horseList[session.HorseName] = {Name: session.HorseName, Count: 0, Session: session.SessionType, Grade: session.SessionGrade, LastSession: session.Date};
           }
           horseList[session.HorseName].Count++;
         }
@@ -560,7 +572,7 @@
     }
 
     function groupByHorse(sessionQuery) {
-      horseList = [{}];  // empty list
+      horseList = {};  // empty list
       const groupedData = {};
       sessionQuery.forEach((session) => {
         // 
@@ -573,7 +585,7 @@
 
         if (session.HorseName !== '') {
           if (!horseList[session.HorseName]) {
-            horseList[session.HorseName] = { Name: session.HorseName, Count: 0, LastSession: session.Date };
+            horseList[session.HorseName] = { Name: session.HorseName, Count: 0, Session: session.SessionType, Grade: session.SessionGrade, LastSession: session.Date };
           }
           horseList[session.HorseName].Count++;
         }
@@ -671,10 +683,36 @@
           }
         });
       });    
-
+      renderStats();
       document.getElementById('loading-state').style.display = 'none'
     }
   
+    // Pupulate UI - Session Stats
+    function renderStats(){
+      sessionStats.innerHTML = ""; // Clear
+      if (Object.keys(horseList).length === 0) {
+
+        return;
+      }
+      //console.log(horseList);
+      let html = '';
+      Object.keys(horseList).forEach((key, index) => {
+        
+          const horseData = horseList[key];
+          html += `<li id="${key}" class="mb-3 p-0">
+          ${horseData.Name} (${horseData.Count}) - ${horseData.LastSession}
+          </br> 
+            ${horseData.Session} <span style="color:${sessionGrade[horseData.Grade].color}; font-weight: bold;">
+            (${sessionGrade[horseData.Grade].syntax})</span></li>`;
+          
+      });
+      html += `</ul>`;
+      sessionStats.innerHTML = html;
+      document.getElementById('stats').classList.remove('d-none');
+      // sessionStats.classList.remove('d-none');
+      
+    };
+
     // create a timeStamp for faster queries
     function dateStringToTimestamp(dateString) {
       const date = new Date(dateString+'T12:00:00.000z');
