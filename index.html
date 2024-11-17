@@ -209,7 +209,7 @@
       <div class="container text-center">
         <span id="userInfo"></span>
         <hr>
-        <p>&copy; 2024 EquiPath by Cowboy Strong. All rights reserved.</p>
+        <p>&copy; 2024 EquiPath by Cowboy Strong.</br>All rights reserved.</p>
       </div>
       <div style="height: 40px;"></div>
     </main>
@@ -381,6 +381,8 @@
     }
     // Scroll to top-of-page
     function topFunction() {
+      collapseList.hide();
+      collapseForm.hide();
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
@@ -699,8 +701,8 @@
       Object.keys(horseList).forEach((key, index) => {
         
           const horseData = horseList[key];
-          html += `<li id="${key}" class="mb-3 p-0">
-          ${horseData.Name} (${horseData.Count}) - ${horseData.LastSession}
+          html += `<li id="${key}" class="mb-3 p-0"><strong>
+          ${horseData.Name}</strong> (${horseData.Count}) - <strong>${horseData.LastSession}</strong>
           </br> 
             ${horseData.Session} <span style="color:${sessionGrade[horseData.Grade].color}; font-weight: bold;">
             (${sessionGrade[horseData.Grade].syntax})</span></li>`;
@@ -710,7 +712,6 @@
       sessionStats.innerHTML = html;
       document.getElementById('stats').classList.remove('d-none');
       // sessionStats.classList.remove('d-none');
-      
     };
 
     // create a timeStamp for faster queries
