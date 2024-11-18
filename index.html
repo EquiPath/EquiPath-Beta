@@ -13,15 +13,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="assets/styles.css">
   <style>
-
-.alert {
-    width: 100%;
-    text-align: center;
-}
+    .alert {
+      width: 100%;
+      text-align: center;
+    }
   </style>
 </head>
 
-<body class="d-flex flex-column ">
+<body class="flex-column ">
   <div class="custom-max-width">
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-brand-blue">
@@ -33,15 +32,25 @@
           </div>
           <span><img src="assets/icon42-white.png"
               style="height: 28px;padding-right: ‒2;padding-right: 4px;padding-bottom: 5px;padding-top: 0px;">
-            <span id="brand" class="navbar-text brand-orange h5">EquipPath Lite</span></span>
+            <span id="brand" class="navbar-text brand-orange h5">EquiPath Lite</span></span>
           <button class="btn btn-sm btn-success fw-bold d-flex" id="signInButton" disabled>Sign In</button>
+          <div id="settings" class="d-none">
+            <button type="button" class="icon-btn" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="material-icons md-18 mr-1" style="color:white">settings</i>
+            </button>
+            <div id="dayReport" class="dropdown-menu dropdown-menu-end" style="background-color: bisque;">
+              <strong class="dropdown-header">Sessions:</strong>
+              <a class="dropdown-item" value="30">30 Day Report</a>
+              <a class="dropdown-item" value="60">60 Day Report</a>
+              <a class="dropdown-item" value="90">90 Day Report</a>
+            </div>
+          </div>
         </div>
-
       </nav>
     </header>
     <main class="flex-shrink-0" id="mainContent">
-      <div id="alertTop" class="toast position-fixed top-1 start-50 translate-middle-x" role="alert" aria-live="assertive"
-        aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000" style="z-index: 100;">
+      <div id="alertTop" class="toast position-fixed top-1 start-50 translate-middle-x" role="alert"
+        aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000" style="z-index: 100;">
         <div class="toast-header bg-brand-blue">
           <strong class="me-auto">Alert!</strong>
           <button type="button" class="btn-close bg-light" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -80,101 +89,101 @@
                   <div id="session-form"></div>
                   <form id="training-form">
                     <fieldset disabled>
-                    <input type="hidden" id="sessionId" value="" />
-                    <div class="mb-3">
-                      <label for="horseName" class="form-label">Horse Name</label>
-                      <input type="text" class="form-control" name="horseName" id="horseName"
-                        placeholder="Enter horse's name" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="trainerName" class="form-label">Trainer Name</label>
-                      <input type="text" class="form-control" name="trainerName" id="trainerName"
-                        placeholder="Enter trainer's name" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="sessionDate" class="form-label">Session Date</label>
-                      <input type="date" class="form-control" name="sessionDate" id="sessionDate" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="timeOfDay" class="form-label">Time of Day</label>
-                      <select class="form-select" name="timeOfDay" id="timeOfDay" required>
-                        <option selected disabled value="">Select Time of Day</option>
-                        <option value="Early Morning">Early Morning (Before 8 a.m.)
-                        </option>
-                        <option value="Morning">Morning (8 a.m. - 11 a.m.)</option>
-                        <option value="Late Morning">Late Morning (10 a.m. - 12
-                          p.m.)</option>
-                        <option value="Noon">Noon (12 p.m.)</option>
-                        <option value="Afternoon">Afternoon (12 p.m. - 5 p.m.)
-                        </option>
-                        <option value="Late Afternoon">Late Afternoon (4 p.m. - 6
-                          p.m.)</option>
-                        <option value="Evening">Evening (5 p.m. - 8 p.m.)</option>
-                        <option value="Night">Night (After 8 p.m.)</option>
-                        <option value="Late Night">Late Night (After 10 p.m.)
-                        </option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="trainingType" class="form-label">Training
-                        Type</label>
-                      <select class="form-select" name="trainingType" id="trainingType" required>
-                        <option selected disabled value="">Choose an exercise...</option>
-                        <option value="Lunging">Lunging</option>
-                        <option value="Groundwork Exercises">Groundwork Exercises
-                        </option>
-                        <option value="Pole Work">Pole Work</option>
-                        <option value="Lateral Work">Lateral Work</option>
-                        <option value="Transitions Between Gaits">Transitions
-                          Between Gaits</option>
-                        <option value="Circles and Serpentines">Circles and
-                          Serpentines</option>
-                        <option value="Backing Up">Backing Up</option>
-                        <option value="Desensitization Exercises">Desensitization
-                          Exercises</option>
-                        <option value="Yielding to Pressure">Yielding to Pressure
-                        </option>
-                        <option value="Halter and Lead Training">Halter and Lead Training</option>
-                        <option value="Trail Work">Trail Work</option>
-                        <option value="Liberty Work">Liberty Work</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="horseMood" class="form-label">Horse Mood</label>
-                      <select class="form-select" name="horseMood" id="horseMood" required>
-                        <option selected disabled value="">Select mood...</option>
-                        <option value="Calm">Calm - Relaxed and steady</option>
-                        <option value="Focused">Focused - Attentive and engaged</option>
-                        <option value="Playful">Playful - Energetic and curious</option>
-                        <option value="Anxious">Anxious - Alert and reactive</option>
-                        <option value="Stubborn">Stubborn - Hesitant and resistant</option>
-                        <option value="Aggressive">Aggressive - Defensive and wary</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="notes" class="form-label">Notes</label>
-                      <textarea class="form-control" name="notes" id="notes" rows="3"
-                        placeholder="Enter detailed notes for training session"></textarea>
-                    </div>
-                    <div class="mb-3">
-                      <label for="grade" class="form-label">Grade</label>
-                      <select class="form-select" name="grade" id="grade">
-                        <option value="*" selected disabled>Select grade...</option>
-                        <option value="A">A - Excellent progress</option>
-                        <option value="B">B - Good progress</option>
-                        <option value="C">C - Some progress</option>
-                        <option value="D">D - Needs improvement</option>
-                        <option value="F">F - No improvement</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="additionalNotes" class="form-label">Additional
-                        Notes</label>
-                      <textarea class="form-control" name="additionalNotes" id="additionalNotes" rows="2"
-                        placeholder="Enter any extra observations"></textarea>
-                    </div>
-                    <button id="submit-session" type="submit" class="btn btn-sm btn-primary float-end">Submit</button>
-                    <button id="cancel-session" type="button" class="btn btn-sm btn-warning float-end">Cancel</button>
+                      <input type="hidden" id="sessionId" value="" />
+                      <div class="mb-3">
+                        <label for="horseName" class="form-label">Horse Name</label>
+                        <input type="text" class="form-control" name="horseName" id="horseName"
+                          placeholder="Enter horse's name" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="trainerName" class="form-label">Trainer Name</label>
+                        <input type="text" class="form-control" name="trainerName" id="trainerName"
+                          placeholder="Enter trainer's name" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="sessionDate" class="form-label">Session Date</label>
+                        <input type="date" class="form-control" name="sessionDate" id="sessionDate" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="timeOfDay" class="form-label">Time of Day</label>
+                        <select class="form-select" name="timeOfDay" id="timeOfDay" required>
+                          <option selected disabled value="">Select Time of Day</option>
+                          <option value="Early Morning">Early Morning (Before 8 a.m.)
+                          </option>
+                          <option value="Morning">Morning (8 a.m. - 11 a.m.)</option>
+                          <option value="Late Morning">Late Morning (10 a.m. - 12
+                            p.m.)</option>
+                          <option value="Noon">Noon (12 p.m.)</option>
+                          <option value="Afternoon">Afternoon (12 p.m. - 5 p.m.)
+                          </option>
+                          <option value="Late Afternoon">Late Afternoon (4 p.m. - 6
+                            p.m.)</option>
+                          <option value="Evening">Evening (5 p.m. - 8 p.m.)</option>
+                          <option value="Night">Night (After 8 p.m.)</option>
+                          <option value="Late Night">Late Night (After 10 p.m.)
+                          </option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="trainingType" class="form-label">Training
+                          Type</label>
+                        <select class="form-select" name="trainingType" id="trainingType" required>
+                          <option selected disabled value="">Choose an exercise...</option>
+                          <option value="Lunging">Lunging</option>
+                          <option value="Groundwork Exercises">Groundwork Exercises
+                          </option>
+                          <option value="Pole Work">Pole Work</option>
+                          <option value="Lateral Work">Lateral Work</option>
+                          <option value="Transitions Between Gaits">Transitions
+                            Between Gaits</option>
+                          <option value="Circles and Serpentines">Circles and
+                            Serpentines</option>
+                          <option value="Backing Up">Backing Up</option>
+                          <option value="Desensitization Exercises">Desensitization
+                            Exercises</option>
+                          <option value="Yielding to Pressure">Yielding to Pressure
+                          </option>
+                          <option value="Halter and Lead Training">Halter and Lead Training</option>
+                          <option value="Trail Work">Trail Work</option>
+                          <option value="Liberty Work">Liberty Work</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="horseMood" class="form-label">Horse Mood</label>
+                        <select class="form-select" name="horseMood" id="horseMood" required>
+                          <option selected disabled value="">Select mood...</option>
+                          <option value="Calm">Calm - Relaxed and steady</option>
+                          <option value="Focused">Focused - Attentive and engaged</option>
+                          <option value="Playful">Playful - Energetic and curious</option>
+                          <option value="Anxious">Anxious - Alert and reactive</option>
+                          <option value="Stubborn">Stubborn - Hesitant and resistant</option>
+                          <option value="Aggressive">Aggressive - Defensive and wary</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" id="notes" rows="3"
+                          placeholder="Enter detailed notes for training session"></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="grade" class="form-label">Grade</label>
+                        <select class="form-select" name="grade" id="grade">
+                          <option value="*" selected disabled>Select grade...</option>
+                          <option value="A">A - Excellent progress</option>
+                          <option value="B">B - Good progress</option>
+                          <option value="C">C - Some progress</option>
+                          <option value="D">D - Needs improvement</option>
+                          <option value="F">F - No improvement</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="additionalNotes" class="form-label">Additional
+                          Notes</label>
+                        <textarea class="form-control" name="additionalNotes" id="additionalNotes" rows="2"
+                          placeholder="Enter any extra observations"></textarea>
+                      </div>
+                      <button id="submit-session" type="submit" class="btn btn-sm btn-primary float-end">Submit</button>
+                      <button id="cancel-session" type="button" class="btn btn-sm btn-warning float-end">Cancel</button>
                     </fieldset>
                   </form>
                 </div>
@@ -197,13 +206,13 @@
         </div>
       </div>
       <div id="stats" class="card m-1 d-none">
-        <h5 class="card-header brand-blue">Quick Stats</h5>
+        <h5 class="card-header brand-blue">Quick Stats*</h5>
         <div class="card-body">
           <section class="mb-4">
             <ul id="session-stats" class="list-unstyled">
               <li>No Records</li>
             </ul>
-          </section> 
+          </section>
         </div>
       </div>
       <div class="container text-center">
@@ -260,14 +269,17 @@
     };
     var sortSessions = 'Date'; // Sort Sessions By...
     const today = new Date();
-    const daysAgo = new Date();
-    // 
-    daysAgo.setDate(today.getDate() - 90); // default 90 day report
+    var daysAgo = 30;  // ##-Day Activity Report
+    function calculatePriorDays(dateString, days) {
+      const date = new Date(dateString);
+      date.setDate(date.getDate() - days);
+      return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    }
 
 
     provider.setCustomParameters({
-        prompt: 'select_account'
-      });
+      prompt: 'select_account'
+    });
     // Lookup Tables
     const horseMood = {
       "Calm": {
@@ -340,10 +352,10 @@
     const _noRecords = `<div class="alert fw-bold" role="alert">No Session Records Found</div>`;
     const _loggedOut = `<div class="alert fw-bold" role="alert">You have been signed out of EquiPath</div>`;
     const _notLoggedIn = `<div class="alert fw-bold" role="alert">You must be Signed In to add new Training Sessions</div>`;
-    
+
     const topToast = bootstrap.Toast.getOrCreateInstance('#alertTop'); // Returns a Bootstrap toast instance
-     
-    function displayAlert(_msg = "Loading..."){
+
+    function displayAlert(_msg = "Loading...") {
       var alert = document.getElementById('alertMsg');
       alert.innerHTML = _msg;
       topToast.show();
@@ -379,7 +391,7 @@
       });
 
     }
-    // Scroll to top-of-page
+    // Close all tabs and Scroll to top-of-page
     function topFunction() {
       collapseList.hide();
       collapseForm.hide();
@@ -398,6 +410,23 @@
 
       }
     }
+    // Settings Events
+    // Get the dayReport div
+      const dayReportDiv = document.getElementById('dayReport');
+
+      // Get all dropdown-item elements within the dayReport div
+      const dropdownItems = dayReportDiv.querySelectorAll('.dropdown-item');
+
+      // Add a click event listener to each dropdown-item
+      dropdownItems.forEach(item => {
+        item.addEventListener('click', (event) => {
+          // Handle the click event here
+          event.preventDefault(); // Prevent default link behavior
+          daysAgo = item.getAttribute('value');
+          showSessions(sortSessions);
+        });
+      });
+    
     // Sign-In / Sign-Out
 
     // Auth/SignIn
@@ -439,6 +468,7 @@
       if (user) {
         signInButton.style.visibility = "hidden";
         signOutButton.style.visibility = "visible";
+        document.getElementById('settings').classList.remove('d-none');
         // addSessionButton.style.visibility = "visiable";
         // enable form submit
         //document.getElementById('submit-session').disable = false;
@@ -463,6 +493,7 @@
         userInfo.innerText = "";
         welcomeUser.style.display = "block";
         signInButton.style.visibility = "visible";
+        document.getElementById('settings').classList.add('d-none');
         signOutButton.style.visibility = "hidden";
         //diableTabs();
         displayAlert(_notLoggedIn);
@@ -498,18 +529,19 @@
 
     // FireStore
     var lastDoc = null;
-
     // Fetch sessions from Firestore and render
     async function fetchSessions() {
       let q;
+      let startDate = calculatePriorDays(today, daysAgo);
+      // console.log(startDate);
       const journalRef = collection(journals, sessionsPath);
-      if(sortSessions === "Date"){
-        q = query(journalRef, orderBy('Date', 'desc'));
+      if (sortSessions === "Date") {
+        q = query(journalRef, orderBy('Date', 'desc'), where('Date', '>=', startDate));
       }
-      else if(sortSessions === "HorseName"){
-        q = query(journalRef, orderBy('HorseName', 'asc'), orderBy('Date', 'desc'));
+      else if (sortSessions === "HorseName") {
+        q = query(journalRef, orderBy('HorseName', 'asc'), orderBy('Date', 'desc'), where('Date', '>=', startDate));
       }
-      else{
+      else {
         q = query(journalRef); // un-sorted
       }
       const querySnapshot = await getDocs(q);
@@ -522,9 +554,9 @@
 
     // Fetch single session 
     async function getDocumentById(documentId) {
-      
+
       try {
-        const docRef = doc(journals, sessionsPath, documentId);  
+        const docRef = doc(journals, sessionsPath, documentId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           // Load form for updating
@@ -538,14 +570,14 @@
         displayAlert('Error getting document');
         console.error('Error getting document:', error);
       }
-      finally{
-        
+      finally {
+
       }
 
     }
 
     let horseList = null;
-    function listHorses(column){
+    function listHorses(column) {
 
     }
     function groupByDate(sessionQuery) {
@@ -562,14 +594,14 @@
         }
         groupedData[monthYear].push(session);
         // unique horse names
-        if(session.HorseName !== ''){
-          if(!horseList[session.HorseName]){
-            horseList[session.HorseName] = {Name: session.HorseName, Count: 0, Session: session.SessionType, Grade: session.SessionGrade, LastSession: session.Date};
+        if (session.HorseName !== '') {
+          if (!horseList[session.HorseName]) {
+            horseList[session.HorseName] = { Name: session.HorseName, Count: 0, Session: session.SessionType, Grade: session.SessionGrade, LastSession: session.Date };
           }
           horseList[session.HorseName].Count++;
         }
       });
-      
+
       return groupedData;
     }
 
@@ -598,23 +630,24 @@
     // Populate UI - Session List
     function renderSessions(data) {
       document.getElementById('session-list').innerHTML = ""; // Clear
-      if(Object.keys(data).length === 0){
+      if (Object.keys(data).length === 0) {
         sessionList.innerHTML = _noRecords;
-          return;
+        return;
       }
       let i = 0;
       let html = `
           <div class="container session-group p-0" >
-            <strong class="small">Sort By: &nbsp;
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="sortBy" id="sortByDate" value="Date" ${sortSessions === 'Date' ? 'checked' : ''}>
-              <label class="form-check-label" for="sortByDate">Date</label>
-            </div
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="sortBy" id="sortByHorse" value="HorseName" ${sortSessions === 'HorseName' ? 'checked' : ''}>
-              <label class="form-check-label" for="sortByHorse">Horse</label>
-            </div>              
-            </strong>
+            <div class="d-inline fw-bold">Sort By: &nbsp;
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="sortBy" id="sortByDate" value="Date" ${sortSessions === 'Date' ? 'checked' : ''}>
+                <label class="form-check-label" for="sortByDate">Date</label>
+              </div
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="sortBy" id="sortByHorse" value="HorseName" ${sortSessions === 'HorseName' ? 'checked' : ''}>
+                <label class="form-check-label" for="sortByHorse">Horse</label>
+              </div>   
+              <div class="d-inline float-end">${daysAgo}-Day Report</div>           
+            </div>
             <ul class="list-unstyled">`;
       Object.keys(data).forEach((key, index) => {
         const sessionList = data[key];
@@ -681,32 +714,29 @@
             // console.log("Selected value:", sortSessions);
             // Do something with the selected value, like update a form field
             showSessions(sortSessions);
-            
+
           }
         });
-      });    
+      });
       renderStats();
       document.getElementById('loading-state').style.display = 'none'
     }
-  
+
     // Pupulate UI - Session Stats
-    function renderStats(){
+    function renderStats() {
       sessionStats.innerHTML = ""; // Clear
       if (Object.keys(horseList).length === 0) {
-
         return;
       }
       //console.log(horseList);
       let html = '';
       Object.keys(horseList).forEach((key, index) => {
-        
-          const horseData = horseList[key];
-          html += `<li id="${key}" class="mb-3 p-0"><strong>
+        const horseData = horseList[key];
+        html += `<li id="${key}" class="mb-3 p-0"><strong>
           ${horseData.Name}</strong> (${horseData.Count}) - <strong>${horseData.LastSession}</strong>
           </br> 
             ${horseData.Session} <span style="color:${sessionGrade[horseData.Grade].color}; font-weight: bold;">
             (${sessionGrade[horseData.Grade].syntax})</span></li>`;
-          
       });
       html += `</ul>`;
       sessionStats.innerHTML = html;
@@ -714,9 +744,9 @@
       // sessionStats.classList.remove('d-none');
     };
 
-    // create a timeStamp for faster queries
+    // create a timeStamp for faster queries -- 2024-11
     function dateStringToTimestamp(dateString) {
-      const date = new Date(dateString+'T12:00:00.000z');
+      const date = new Date(dateString + 'T12:00:00.000z');
       // console.log(date);
       const timestamp = Timestamp.fromDate(date);
       return timestamp;
@@ -794,12 +824,13 @@
       topFunction(); // scroll to top of page
 
     };
-    //topFunction(); // scroll to top of page
-    // initial View
-    // sessionListView.scrollIntoView();
-    //  collapseList.show();
+   
+    // Initialize 
     sessionList.innerHTML = _noRecords;
-    formAlert.innerHTML=_notLoggedIn;
+    formAlert.innerHTML = _notLoggedIn;
+
+
+
   </script>
 </body>
 

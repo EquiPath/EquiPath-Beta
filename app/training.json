@@ -1,0 +1,64 @@
+{
+  "exercises": [
+    {
+      "name": "Lunging",
+      "purpose": "Helps the horse learn voice commands, develop balance, and improve fitness.",
+      "description": "In a controlled circle, the horse moves at different gaits (walk, trot, canter) while the trainer guides from the center. Variations include changing directions, speeds, and distances."
+    },
+    {
+      "name": "Groundwork Exercises",
+      "purpose": "Builds respect and establishes trust between horse and handler.",
+      "description": "Exercises can include yielding the hindquarters, backing up, and sending exercises. Groundwork prepares the horse for riding or other in-hand work."
+    },
+    {
+      "name": "Pole Work",
+      "purpose": "Develops rhythm, coordination, and balance.",
+      "description": "Trotting or walking over ground poles, either in a straight line or in varied patterns. Can be elevated for additional difficulty and muscle-building."
+    },
+    {
+      "name": "Lateral Work",
+      "purpose": "Enhances flexibility and body control.",
+      "description": "Includes exercises like leg yields, shoulder-ins, and haunches-ins, encouraging the horse to move laterally or 'sideways' to improve suppleness."
+    },
+    {
+      "name": "Transitions Between Gaits",
+      "purpose": "Teaches responsiveness and strengthens muscles.",
+      "description": "Moving from one gait to another (e.g., walk to trot, trot to canter), then back down. Builds smoothness and responsiveness."
+    },
+    {
+      "name": "Circles and Serpentines",
+      "purpose": "Improves balance, flexibility, and engagement of the hindquarters.",
+      "description": "Riding circles of varying sizes (10m, 20m) and serpentines encourages the horse to bend, which is critical for balance."
+    },
+    {
+      "name": "Backing Up",
+      "purpose": "Develops muscle in the hindquarters and encourages obedience.",
+      "description": "The horse takes a few steps backward on cue, strengthening hind muscles and improving response to cues."
+    },
+    {
+      "name": "Desensitization Exercises",
+      "purpose": "Builds the horse’s confidence and trust.",
+      "description": "Introduces the horse to various stimuli (tarps, flags, water, etc.) to reduce spooking and increase calmness."
+    },
+    {
+      "name": "Yielding to Pressure",
+      "purpose": "Reinforces respect and teaches softness to pressure.",
+      "description": "The horse learns to move away from pressure on different parts of its body (shoulders, hindquarters, face), preparing it for refined movements."
+    },
+    {
+      "name": "Halter and Lead Training",
+      "purpose": "Teaches good ground manners and responsiveness.",
+      "description": "The horse is taught to walk, stop, turn, and back up on a lead line, emphasizing control, obedience, and respect."
+    },
+    {
+      "name": "Liberty Work",
+      "purpose": "Enhances trust and connection between horse and handler.",
+      "description": "Working with the horse without ropes or tack, relying solely on body language and trust. This deepens the bond and promotes responsiveness and understanding."
+    },
+    {
+      "name": "Trail Work",
+      "purpose": "Builds confidence, navigational skills, and stamina in different environments.",
+      "description": "Introducing the horse to trails, navigating natural obstacles, and adjusting to varied terrains to increase adaptability and confidence."
+    }
+  ]
+}
