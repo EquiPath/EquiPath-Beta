@@ -17,6 +17,10 @@
       color: #333;
       font-size: 1.2em;
     }
+    body{
+      color: #000;
+      background-color: #fff;
+    }
   </style>
 </head>
 
@@ -262,7 +266,7 @@
       <span style="color:${sessionGrade[session.SessionGrade].color}; font-weight: bold;">
           ${session.SessionGrade}</span> - ${sessionGrade[session.SessionGrade].syntax}
       </br> 
-      <strong>Notes:</strong> ${session.SessionNotes || 'No additional notes.'}
+      <strong>Notes:</strong> ${session.SessionNotes || 'No notes.'}
       </br>
           <strong>Additional Notes:</strong> ${session.AdditionalNotes || 'No additional notes.'}
       </br>

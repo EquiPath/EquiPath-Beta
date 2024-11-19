@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 
-<body class="d-flex flex-column">
+<body class="flex-column">
   
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-brand-blue">
     <div class="container-fluid">
@@ -532,7 +532,7 @@
 
     </div>
     <div class="container text-center">
-      <p>&copy; 2024 EquiPath by Cowboy Strong. All rights reserved.</p>
+      <p>&copy; 2024 EquiPath by Cowboy Strong.</br>br>All rights reserved.</p>
     </div>
   </main>
   </div>
@@ -586,9 +586,18 @@
     });
     // Scroll to top-of-page
     function topFunction() {
+      // add 'close all tabs'
+      
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      closeAllAccordions();
     }
+    function closeAllAccordions() {
+        const accordions = document.querySelectorAll('.accordion-collapse.show');
+        accordions.forEach(accordion => {
+          bootstrap.Collapse.getInstance(accordion).hide();
+        });
+      }
     // Init UI/UX
     const scrollToTop = document.getElementById("scrollTop");
     scrollToTop.addEventListener('click', topFunction);

@@ -648,7 +648,7 @@
               </div>   
               <div class="d-inline float-end">${daysAgo}-Day Report</div>           
             </div>
-            <ul class="list-unstyled">`;
+            <ul class="list-unstyled m-1">`;
       Object.keys(data).forEach((key, index) => {
         const sessionList = data[key];
 
@@ -738,7 +738,7 @@
             ${horseData.Session} <span style="color:${sessionGrade[horseData.Grade].color}; font-weight: bold;">
             (${sessionGrade[horseData.Grade].syntax})</span></li>`;
       });
-      html += `</ul>`;
+      html += `</ul><div class="d-inline float-start">*Last ${daysAgo} Days</div>`;
       sessionStats.innerHTML = html;
       document.getElementById('stats').classList.remove('d-none');
       // sessionStats.classList.remove('d-none');
@@ -824,7 +824,14 @@
       topFunction(); // scroll to top of page
 
     };
-   
+    // Set Trainer 
+    document.getElementById('trainerName').addEventListener('focus', function () {
+        if (this.value === '') {
+          this.value = trainer.name;
+        }
+      });
+    
+      
     // Initialize 
     sessionList.innerHTML = _noRecords;
     formAlert.innerHTML = _notLoggedIn;
